@@ -18,16 +18,16 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Solutions', href: '/#solutions' },
     { name: 'Customers', href: '/customers' },
     { name: 'Experts', href: '/experts' },
     { name: 'Pricing', href: '/pricing' },
   ];
 
   const resourceLinks = [
-    { name: 'Blog', href: '#', description: 'SEO & growth tips' },
-    { name: 'Resources Library', href: '#', description: 'Guides, templates, eBooks' },
-    { name: 'Partner Program', href: '#', description: 'For chambers & co-working hubs' },
+    { name: 'About Us', href: '/about', description: 'Our mission and story' },
+    { name: 'Blog', href: '/blog', description: 'SEO & growth tips' },
+    { name: 'Resources Library', href: '/resources', description: 'Guides, templates, eBooks' },
+    { name: 'Partner Program', href: '/partners', description: 'For chambers & co-working hubs' },
   ];
 
   return (

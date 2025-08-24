@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Star, Zap, Globe, Crown, Target } from 'lucide-react';
+import PricingCard from '../components/PricingCard';
 
 const Pricing = () => {
   const [activeTab, setActiveTab] = useState('customers');
@@ -182,7 +183,7 @@ const Pricing = () => {
   return (
     <div className="pt-32">
       {/* Banner */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6">
         <div className="max-w-7xl mx-auto text-center">
           <div className="font-semibold">
             🎉 {activeTab === 'customers' ? 'Free customer access' : 'Free expert listings'} until September 2025
@@ -193,20 +194,20 @@ const Pricing = () => {
       {/* Header */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h1 className="text-6xl font-bold text-gray-900 mb-8">
+          <h1 className="text-6xl font-bold text-slate-900 mb-8">
             Simple, transparent pricing
           </h1>
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-600 mb-12 max-w-3xl mx-auto">
             Choose the plan that fits your needs. All plans include our core features.
           </p>
           
           {/* Tab Switcher */}
-          <div className="inline-flex items-center bg-gray-100 p-2 rounded-2xl">
+          <div className="inline-flex items-center bg-slate-100 p-2 rounded-2xl">
             <button
               className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
                 activeTab === 'customers'
                   ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
               onClick={() => setActiveTab('customers')}
             >
@@ -216,7 +217,7 @@ const Pricing = () => {
               className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
                 activeTab === 'experts'
                   ? 'bg-white text-purple-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
               onClick={() => setActiveTab('experts')}
             >
@@ -231,79 +232,21 @@ const Pricing = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-4 gap-8">
             {currentPlans.map((plan, index) => (
-              <motion.div
+              <PricingCard
                 key={plan.name}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative bg-white rounded-3xl p-8 transition-all duration-300 ${
-                  plan.highlighted
-                    ? 'border-2 border-blue-500 shadow-2xl scale-105 z-10'
-                    : 'border border-gray-200 shadow-lg hover:shadow-xl hover:-translate-y-1'
-                }`}
-              >
-                {plan.badge && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold ${
-                      plan.popular
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-green-600 text-white'
-                    }`}>
-                      {plan.popular && <Star className="w-4 h-4 mr-1" />}
-                      {!plan.popular && <Crown className="w-4 h-4 mr-1" />}
-                      {plan.badge}
-                    </div>
-                  </div>
-                )}
-                
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{plan.name}</h3>
-                  
-                  <div className="mb-4">
-                    {plan.offerPrice ? (
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-center space-x-2">
-                          <span className="text-5xl font-bold text-gray-900">
-                            ${plan.offerPrice}
-                          </span>
-                          <span className="text-2xl text-gray-400 line-through">
-                            ${plan.originalPrice}
-                          </span>
-                        </div>
-                        <div className="text-green-600 font-semibold text-sm">
-                          Save ${(plan.originalPrice || 0) - plan.offerPrice}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-5xl font-bold text-gray-900">
-                        {plan.price === 0 ? 'Free' : `$${plan.price}`}
-                      </div>
-                    )}
-                    <div className="text-gray-500 mt-2">/{plan.period}</div>
-                  </div>
-                  
-                  <p className="text-gray-600">{plan.description}</p>
-                </div>
-                
-                <ul className="space-y-4 mb-8">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start space-x-3">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-1" />
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <button
-                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-200 ${
-                    plan.highlighted
-                      ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl'
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                  }`}
-                >
-                  {plan.ctaText}
-                </button>
-              </motion.div>
+                name={plan.name}
+                price={plan.price}
+                originalPrice={plan.originalPrice}
+                offerPrice={plan.offerPrice}
+                period={plan.period}
+                description={plan.description}
+                features={plan.features}
+                highlighted={plan.highlighted}
+                ctaText={plan.ctaText}
+                badge={plan.badge}
+                popular={plan.popular}
+                index={index}
+              />
             ))}
           </div>
         </div>
@@ -311,13 +254,13 @@ const Pricing = () => {
 
       {/* Promo Ads Section - Only for Experts */}
       {activeTab === 'experts' && (
-        <section className="py-24 bg-gray-50">
+        <section className="py-24 bg-slate-50">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl font-bold text-slate-900 mb-6">
                 Promotional Advertising
               </h2>
-              <p className="text-xl text-gray-600 mb-4">
+              <p className="text-xl text-slate-600 mb-4">
                 Limited slots available for maximum visibility
               </p>
               <div className="inline-flex items-center px-4 py-2 bg-red-50 rounded-full">
@@ -346,22 +289,22 @@ const Pricing = () => {
                   <div className="text-center mb-8 pt-4">
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">{plan.name}</h3>
                     <div className="mb-4">
-                      <div className="text-5xl font-bold text-gray-900 mb-2">
+                      <div className="text-5xl font-bold text-slate-900 mb-2">
                         ${plan.price}
                       </div>
-                      <div className="text-gray-500">/{plan.period}</div>
-                      <div className="text-sm text-gray-600 mt-2">
+                      <div className="text-slate-500">/{plan.period}</div>
+                      <div className="text-sm text-slate-600 mt-2">
                         or ${plan.yearlyPrice}/year (save ${(plan.price * 12) - plan.yearlyPrice})
                       </div>
                     </div>
-                    <p className="text-gray-600">{plan.description}</p>
+                    <p className="text-slate-600">{plan.description}</p>
                   </div>
                   
                   <ul className="space-y-4 mb-8">
                     {plan.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start space-x-3">
                         <Star className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-1" />
-                        <span className="text-gray-700">{feature}</span>
+                        <span className="text-slate-700">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -380,10 +323,10 @@ const Pricing = () => {
       <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">
               Frequently asked questions
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-slate-600">
               Everything you need to know about our pricing
             </p>
           </div>
@@ -421,10 +364,10 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-gray-50 rounded-2xl p-8"
+                className="bg-slate-50 rounded-3xl p-8"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{faq.q}</h3>
-                <p className="text-gray-600 leading-relaxed">{faq.a}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{faq.q}</h3>
+                <p className="text-slate-600 leading-relaxed">{faq.a}</p>
               </motion.div>
             ))}
           </div>
@@ -432,7 +375,7 @@ const Pricing = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section className="py-24 bg-gradient-to-r from-blue-600 to-indigo-600">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
