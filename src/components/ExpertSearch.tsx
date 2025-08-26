@@ -1,78 +1,61 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Filter, MapPin, Star, MessageSquare, Eye } from 'lucide-react'
-import { supabase } from '../lib/supabase'
+import { expertProfileService } from '../lib/database'
+import { useAuth } from '../hooks/useAuth'
+import { useMessaging } from '../hooks/useMessaging'
+import type { ExpertProfile, UserProfile, ExpertSearchFilters } from '../types'
 
-interface Expert {
-  id: string
-  full_name: string
-  expertise: string
-  location: string
-  rating: number
-  reviews: number
-  hourly_rate: number
-  avatar_url?: string
-  bio?: string
-  verified: boolean
-}
+type ExpertWithProfile = ExpertProfile & { user_profile: UserProfile }
 
 const ExpertSearch = () => {
-  const [experts, setExperts] = useState<Expert[]>([])
-  const [filteredExperts, setFilteredExperts] = useState<Expert[]>([])
+  const { user, profile } = useAuth()
+  const { createConversation } = useMessaging()
+  const [experts, setExperts] = useState<ExpertWithProfile[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [locationFilter, setLocationFilter] = useState('')
   const [skillFilter, setSkillFilter] = useState('')
   const [showFilters, setShowFilters] = useState(false)
+  const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
 
   useEffect(() => {
     fetchExperts()
   }, [])
 
   useEffect(() => {
-    filterExperts()
-  }, [experts, searchTerm, locationFilter, skillFilter])
+    const delayedSearch = setTimeout(() => {
+      setPage(1)
+      fetchExperts()
+    }, 300)
+
+    return () => clearTimeout(delayedSearch)
+  }, [searchTerm, locationFilter, skillFilter])
 
   const fetchExperts = async () => {
     try {
-      // Mock data for now - replace with actual Supabase query
-      const mockExperts: Expert[] = [
-        {
-          id: '1',
-          full_name: 'Sarah Johnson',
-          expertise: 'SEO & Content Marketing',
-          location: 'New York, USA',
-          rating: 4.9,
-          reviews: 127,
-          hourly_rate: 85,
-          bio: 'SEO specialist with 8+ years helping businesses grow organic traffic',
-          verified: true
-        },
-        {
-          id: '2',
-          full_name: 'Marcus Chen',
-          expertise: 'Social Media Marketing',
-          location: 'London, UK',
-          rating: 4.8,
-          reviews: 89,
-          hourly_rate: 75,
-          bio: 'Social media strategist specializing in B2B growth',
-          verified: true
-        },
-        {
-          id: '3',
-          full_name: 'Elena Rodriguez',
-          expertise: 'Web Development',
-          location: 'Barcelona, Spain',
-          rating: 4.9,
-          reviews: 156,
-          hourly_rate: 95,
-          bio: 'Full-stack developer with expertise in React and Node.js',
-          verified: true
-        }
-      ]
+      setLoading(true)
       
-      setExperts(mockExperts)
+      const filters: ExpertSearchFilters = {
+        query: searchTerm,
+        location: locationFilter,
+        verified_only: true
+      }
+
+      if (skillFilter) {
+        filters.skills = [skillFilter]
+      }
+
+      const result = await expertProfileService.search(filters, page, 20)
+      
+      if (page === 1) {
+        setExperts(result.data)
+      } else {
+        setExperts(prev => [...prev, ...result.data])
+      }
+      
+      setHasMore(result.data.length === 20)
     } catch (error) {
       console.error('Error fetching experts:', error)
     } finally {
@@ -80,34 +63,28 @@ const ExpertSearch = () => {
     }
   }
 
-  const filterExperts = () => {
-    let filtered = experts
-
-    if (searchTerm) {
-      filtered = filtered.filter(expert =>
-        expert.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        expert.expertise.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+  const handleConnect = async (expert: ExpertWithProfile) => {
+    if (!user || !profile) {
+      alert('Please sign in to connect with experts')
+      return
     }
 
-    if (locationFilter) {
-      filtered = filtered.filter(expert =>
-        expert.location.toLowerCase().includes(locationFilter.toLowerCase())
-      )
+    if (profile.role !== 'business') {
+      alert('Only business users can connect with experts')
+      return
     }
 
-    if (skillFilter) {
-      filtered = filtered.filter(expert =>
-        expert.expertise.toLowerCase().includes(skillFilter.toLowerCase())
+    try {
+      await createConversation(
+        user.id,
+        expert.user_id,
+        `Connection request from ${profile.full_name}`
       )
+      alert('Connection request sent!')
+    } catch (error) {
+      console.error('Error creating connection:', error)
+      alert('Failed to send connection request')
     }
-
-    setFilteredExperts(filtered)
-  }
-
-  const handleConnect = (expertId: string) => {
-    // Open messaging interface
-    console.log('Connecting to expert:', expertId)
   }
 
   if (loading) {
@@ -162,8 +139,8 @@ const ExpertSearch = () => {
                   <input
                     type="text"
                     placeholder="City, Country"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={locationFilter}
+                    src={expert.user_profile.avatar_url || `https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400`} 
+                    alt={expert.user_profile.full_name}
                     onChange={(e) => setLocationFilter(e.target.value)}
                   />
                 </div>
@@ -188,7 +165,7 @@ const ExpertSearch = () => {
 
         {/* Results */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredExperts.map((expert, index) => (
+          {experts.map((expert, index) => (
             <motion.div
               key={expert.id}
               initial={{ opacity: 0, y: 20 }}
@@ -232,22 +209,25 @@ const ExpertSearch = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-gray-900">${expert.hourly_rate}</div>
+                      {expert.skills?.[0] || 'Expert'}
                     <div className="text-sm text-gray-500">per hour</div>
                   </div>
                 </div>
 
-                <div className="flex space-x-3">
+                    {expert.user_profile.full_name}
                   <button className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
                     <Eye className="w-4 h-4 mr-2" />
-                    View Profile
+                    {expert.bio || 'Professional expert ready to help your business grow'}
                   </button>
                   <button
-                    onClick={() => handleConnect(expert.id)}
-                    className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
-                  >
+                    onClick={() => handleConnect(expert)}
+                      <span>{expert.user_profile.location}</span>
+                      <span className="flex items-center">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
+                        4.8 (23)
+                      </span>
                     <MessageSquare className="w-4 h-4 mr-2" />
-                    Connect
+                    <span>${expert.hourly_rate || 50}/hr</span>
                   </button>
                 </div>
               </div>
@@ -255,7 +235,7 @@ const ExpertSearch = () => {
           ))}
         </div>
 
-        {filteredExperts.length === 0 && (
+        {experts.length === 0 && !loading && (
           <div className="text-center py-12">
             <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No experts found</h3>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { X, User, Building, Mail, Lock, Eye, EyeOff } from 'lucide-react'
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuth } from '../../hooks/useAuth'
+import type { SignUpData } from '../../types'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -49,22 +50,24 @@ const AuthModal: React.FC<AuthModalProps> = ({
           throw new Error('Passwords do not match')
         }
 
-        const userData = {
+        const signUpData: SignUpData = {
+          email: formData.email,
+          password: formData.password,
           full_name: formData.fullName,
           role,
           plan,
-          company_name: role === 'business' ? formData.companyName : null,
-          expertise: role === 'expert' ? formData.expertise : null,
+          company_name: role === 'business' ? formData.companyName : undefined,
+          expertise: role === 'expert' ? formData.expertise : undefined,
           location: formData.location
         }
 
-        const { error } = await signUp(formData.email, formData.password, userData)
+        const { error } = await signUp(signUpData)
         if (error) throw error
       }
       
       onClose()
     } catch (err: any) {
-      setError(err.message)
+      setError(err.message || 'An error occurred')
     } finally {
       setLoading(false)
     }

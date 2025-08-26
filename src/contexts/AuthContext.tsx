@@ -1,14 +1,18 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { User, Session } from '@supabase/supabase-js'
-import { supabase } from '../lib/supabase'
+import { supabase, signUp as supabaseSignUp, signIn as supabaseSignIn, signOut as supabaseSignOut } from '../lib/supabase'
+import { userProfileService, businessProfileService, expertProfileService, subscriptionService } from '../lib/database'
+import type { SignUpData, UserProfile } from '../types'
 
 interface AuthContextType {
   user: User | null
   session: Session | null
+  profile: UserProfile | null
   loading: boolean
-  signUp: (email: string, password: string, userData: any) => Promise<any>
-  signIn: (email: string, password: string) => Promise<any>
+  signUp: (data: SignUpData) => Promise<{ data?: any; error?: any }>
+  signIn: (email: string, password: string) => Promise<{ data?: any; error?: any }>
   signOut: () => Promise<void>
+  refreshProfile: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -24,7 +28,22 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
   const [session, setSession] = useState<Session | null>(null)
+  const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const refreshProfile = async () => {
+    if (!user) {
+      setProfile(null)
+      return
+    }
+
+    try {
+      const userProfile = await userProfileService.getByUserId(user.id)
+      setProfile(userProfile)
+    } catch (error) {
+      console.error('Error fetching user profile:', error)
+    }
+  }
 
   useEffect(() => {
     // Get initial session
@@ -40,42 +59,107 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSession(session)
         setUser(session?.user ?? null)
         setLoading(false)
+        
+        if (session?.user) {
+          await refreshProfile()
+        } else {
+          setProfile(null)
+        }
       }
     )
 
     return () => subscription.unsubscribe()
   }, [])
 
-  const signUp = async (email: string, password: string, userData: any) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: userData
+  // Load profile when user is available
+  useEffect(() => {
+    if (user && !profile) {
+      refreshProfile()
+    }
+  }, [user, profile])
+
+  const signUp = async (signUpData: SignUpData) => {
+    try {
+      // Sign up with Supabase Auth
+      const { data, error } = await supabaseSignUp(signUpData.email, signUpData.password, {
+        full_name: signUpData.full_name,
+        role: signUpData.role
+      })
+
+      if (error) return { error }
+      if (!data.user) return { error: { message: 'Failed to create user' } }
+
+      // Create user profile
+      const userProfile = await userProfileService.create({
+        user_id: data.user.id,
+        full_name: signUpData.full_name,
+        email: signUpData.email,
+        role: signUpData.role,
+        plan: signUpData.plan,
+        location: signUpData.location,
+        verified: false,
+        online_status: true,
+        last_seen: new Date().toISOString()
+      })
+
+      if (!userProfile) {
+        return { error: { message: 'Failed to create user profile' } }
       }
-    })
-    return { data, error }
+
+      // Create role-specific profile
+      if (signUpData.role === 'business' && signUpData.company_name) {
+        await businessProfileService.create({
+          user_id: data.user.id,
+          company_name: signUpData.company_name
+        })
+      } else if (signUpData.role === 'expert' && signUpData.expertise) {
+        await expertProfileService.create({
+          user_id: data.user.id,
+          skills: [signUpData.expertise],
+          verified: false
+        })
+      }
+
+      // Create subscription
+      if (signUpData.plan !== 'free') {
+        await subscriptionService.create({
+          user_id: data.user.id,
+          plan: signUpData.plan,
+          status: 'active',
+          current_period_start: new Date().toISOString(),
+          current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days
+        })
+      }
+
+      return { data }
+    } catch (error) {
+      console.error('Sign up error:', error)
+      return { error }
+    }
   }
 
   const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    })
+    const { data, error } = await supabaseSignIn(email, password)
     return { data, error }
   }
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    if (user) {
+      // Update online status before signing out
+      await userProfileService.updateOnlineStatus(user.id, false)
+    }
+    await supabaseSignOut()
   }
 
   const value = {
     user,
     session,
+    profile,
     loading,
     signUp,
     signIn,
-    signOut
+    signOut,
+    refreshProfile
   }
 
   return (

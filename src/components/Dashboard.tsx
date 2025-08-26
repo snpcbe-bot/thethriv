@@ -13,37 +13,15 @@ import {
   Edit,
   Megaphone
 } from 'lucide-react'
-import { useAuth } from '../contexts/AuthContext'
-import { supabase } from '../lib/supabase'
+import { useAuth } from '../hooks/useAuth'
+import { useUserProfile } from '../hooks/useUserProfile'
+import MessageCenter from './messaging/MessageCenter'
 
 const Dashboard = () => {
-  const { user } = useAuth()
-  const [profile, setProfile] = useState<any>(null)
+  const { user, profile: authProfile } = useAuth()
+  const { profile, businessProfile, expertProfile, loading: profileLoading } = useUserProfile()
   const [activeTab, setActiveTab] = useState('overview')
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    if (user) {
-      fetchProfile()
-    }
-  }, [user])
-
-  const fetchProfile = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', user?.id)
-        .single()
-
-      if (error) throw error
-      setProfile(data)
-    } catch (error) {
-      console.error('Error fetching profile:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const isExpert = profile?.role === 'expert'
   const isBusiness = profile?.role === 'business'
@@ -59,7 +37,7 @@ const Dashboard = () => {
     { id: 'settings', name: 'Settings', icon: Settings }
   ]
 
-  if (loading) {
+  if (profileLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
@@ -111,7 +89,7 @@ const Dashboard = () => {
             <div className="bg-white rounded-2xl shadow-sm p-8">
               {activeTab === 'overview' && <OverviewTab profile={profile} />}
               {activeTab === 'profile' && <ProfileTab profile={profile} />}
-              {activeTab === 'messages' && <MessagesTab />}
+              {activeTab === 'messages' && <MessageCenter />}
               {activeTab === 'connections' && <ConnectionsTab />}
               {activeTab === 'projects' && isBusiness && <ProjectsTab />}
               {activeTab === 'services' && isExpert && <ServicesTab />}
