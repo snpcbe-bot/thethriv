@@ -87,14 +87,14 @@ const Navigation = () => {
                     onMouseLeave={() => setIsResourcesOpen(false)}
                   >
                     {resourceLinks.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className="block px-6 py-4 hover:bg-gray-50 transition-colors"
                       >
                         <div className="font-semibold text-gray-900 mb-1">{item.name}</div>
                         <div className="text-sm text-gray-500">{item.description}</div>
-                      </a>
+                      </Link>
                     ))}
                   </motion.div>
                 )}
@@ -148,13 +148,14 @@ const Navigation = () => {
               <div className="space-y-4">
                 <span className="block font-semibold text-lg text-gray-700">Resources</span>
                 {resourceLinks.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className="block pl-4 text-gray-600 hover:text-blue-600 transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="pt-6 space-y-4">
