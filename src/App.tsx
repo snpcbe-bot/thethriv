@@ -17,6 +17,7 @@ import Footer from './components/Footer';
 import Dashboard from './components/Dashboard';
 import ExpertSearch from './components/ExpertSearch';
 import ProtectedRoute from './components/ProtectedRoute';
+import ExpertSearchPage from './components/expert-search/ExpertSearchPage';
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
             <Route path="/partners" element={<PartnerProgram />} />
             <Route path="/join-business" element={<JoinBusiness />} />
             <Route path="/join-expert" element={<JoinExpert />} />
-            <Route path="/search" element={<ExpertSearch />} />
+            <Route path="/search" element={<ExpertSearchPage />} />
+            <Route path="/experts/search" element={<ExpertSearchPage />} />
             <Route 
               path="/dashboard" 
               element={
