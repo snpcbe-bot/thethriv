@@ -70,9 +70,12 @@ const Navigation = () => {
               {/* Resources Dropdown */}
               <div className="relative">
                 <button
-                  className="flex items-center space-x-2 font-semibold text-lg text-gray-700 hover:text-blue-600 transition-colors"
+                  className={`flex items-center space-x-2 font-semibold text-lg transition-colors ${
+                    ['/about', '/blog', '/resources', '/partners'].includes(location.pathname) 
+                      ? 'text-blue-600' 
+                      : 'text-gray-700 hover:text-blue-600'
+                  }`}
                   onMouseEnter={() => setIsResourcesOpen(true)}
-                  onMouseLeave={() => setIsResourcesOpen(false)}
                 >
                   <span>Resources</span>
                   <ChevronDown className="w-5 h-5" />
@@ -82,7 +85,7 @@ const Navigation = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-full left-0 mt-4 w-80 bg-white rounded-2xl shadow-2xl border py-4"
+                    className="absolute top-full left-0 mt-4 w-80 bg-white rounded-2xl shadow-2xl border py-4 z-50"
                     onMouseEnter={() => setIsResourcesOpen(true)}
                     onMouseLeave={() => setIsResourcesOpen(false)}
                   >
@@ -90,7 +93,10 @@ const Navigation = () => {
                       <Link
                         key={item.name}
                         to={item.href}
-                        className="block px-6 py-4 hover:bg-gray-50 transition-colors"
+                        className={`block px-6 py-4 hover:bg-gray-50 transition-colors ${
+                          location.pathname === item.href ? 'bg-blue-50 text-blue-600' : ''
+                        }`}
+                        onClick={() => setIsResourcesOpen(false)}
                       >
                         <div className="font-semibold text-gray-900 mb-1">{item.name}</div>
                         <div className="text-sm text-gray-500">{item.description}</div>
