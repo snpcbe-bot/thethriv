@@ -4,8 +4,6 @@ import { Check, Star, Zap, Globe, Crown, Target } from 'lucide-react';
 import PricingCard from '../components/PricingCard';
 
 const Pricing = () => {
-  const [activeTab, setActiveTab] = useState('customers');
-
   const [activeTab, setActiveTab] = useState('business');
 
   const businessPlans = [
