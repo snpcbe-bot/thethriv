@@ -149,8 +149,6 @@ const Homepage = () => {
             </p>
           </div>
           
-          <GlobalMap />
-          
           <div className="grid md:grid-cols-2 gap-12 mt-20">
             <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
               <h3 className="text-2xl font-bold text-slate-900 mb-6">Launch Regions</h3>
