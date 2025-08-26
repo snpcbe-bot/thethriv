@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Filter, MapPin, Star, MessageSquare, Eye } from 'lucide-react'
-import { expertProfileService } from '../lib/database'
+import { expertService } from '../services/expertService'
+import { messagingService } from '../services/messagingService'
 import { useAuth } from '../hooks/useAuth'
-import { useMessaging } from '../hooks/useMessaging'
 import type { ExpertProfile, UserProfile, ExpertSearchFilters } from '../types'
 
 type ExpertWithProfile = ExpertProfile & { user_profile: UserProfile }
 
 const ExpertSearch = () => {
   const { user, profile } = useAuth()
-  const { createConversation } = useMessaging()
   const [experts, setExperts] = useState<ExpertWithProfile[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -47,7 +46,7 @@ const ExpertSearch = () => {
         filters.skills = [skillFilter]
       }
 
-      const result = await expertProfileService.search(filters, page, 20)
+      const result = await expertService.search(filters, page, 20)
       
       if (page === 1) {
         setExperts(result.data)
@@ -75,7 +74,7 @@ const ExpertSearch = () => {
     }
 
     try {
-      await createConversation(
+      await messagingService.createOrGetConversation(
         user.id,
         expert.user_id,
         `Connection request from ${profile.full_name}`
@@ -139,8 +138,8 @@ const ExpertSearch = () => {
                   <input
                     type="text"
                     placeholder="City, Country"
-                    src={expert.user_profile.avatar_url || `https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400`} 
-                    alt={expert.user_profile.full_name}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    value={locationFilter}
                     onChange={(e) => setLocationFilter(e.target.value)}
                   />
                 </div>
@@ -178,12 +177,12 @@ const ExpertSearch = () => {
                   <div className="flex items-center space-x-4">
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
                       <span className="text-xl font-bold text-white">
-                        {expert.full_name.charAt(0)}
+                        {expert.user_profile.full_name.charAt(0)}
                       </span>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900">{expert.full_name}</h3>
-                      <p className="text-blue-600 font-medium">{expert.expertise}</p>
+                      <h3 className="text-xl font-bold text-gray-900">{expert.user_profile.full_name}</h3>
+                      <p className="text-blue-600 font-medium">{expert.skills?.[0] || 'Expert'}</p>
                     </div>
                   </div>
                   {expert.verified && (
@@ -195,40 +194,38 @@ const ExpertSearch = () => {
 
                 <div className="flex items-center space-x-2 text-gray-500 mb-4">
                   <MapPin className="w-4 h-4" />
-                  <span className="text-sm">{expert.location}</span>
+                  <span className="text-sm">{expert.user_profile.location}</span>
                 </div>
 
-                <p className="text-gray-600 mb-4 line-clamp-2">{expert.bio}</p>
+                <p className="text-gray-600 mb-4 line-clamp-2">{expert.bio || 'Professional expert ready to help your business grow'}</p>
 
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-1">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="text-sm font-medium">{expert.rating}</span>
-                      <span className="text-sm text-gray-500">({expert.reviews})</span>
+                      <span className="text-sm font-medium">4.8</span>
+                      <span className="text-sm text-gray-500">(23)</span>
                     </div>
                   </div>
                   <div className="text-right">
-                      {expert.skills?.[0] || 'Expert'}
+                    <span>${expert.hourly_rate || 50}/hr</span>
                     <div className="text-sm text-gray-500">per hour</div>
                   </div>
                 </div>
 
-                    {expert.user_profile.full_name}
+                <div className="flex space-x-3">
                   <button className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
                     <Eye className="w-4 h-4 mr-2" />
-                    {expert.bio || 'Professional expert ready to help your business grow'}
+                    View Profile
                   </button>
                   <button
                     onClick={() => handleConnect(expert)}
-                      <span>{expert.user_profile.location}</span>
-                      <span className="flex items-center">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
-                        4.8 (23)
-                      </span>
+                    className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
+                  >
                     <MessageSquare className="w-4 h-4 mr-2" />
-                    <span>${expert.hourly_rate || 50}/hr</span>
+                    Connect
                   </button>
+                </div>
                 </div>
               </div>
             </motion.div>

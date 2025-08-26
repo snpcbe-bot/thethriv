@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from './useAuth';
-import { conversationService, messageService, userProfileService } from '../lib/database';
+import { messagingService } from '../services/messagingService';
 import { supabase } from '../lib/supabase';
 import type { Conversation, Message } from '../types';
 
@@ -18,7 +18,7 @@ export const useMessaging = () => {
     if (!user) return;
 
     try {
-      const convs = await conversationService.getByUserId(user.id);
+      const convs = await messagingService.getConversations();
       setConversations(convs);
     } catch (error) {
       console.error('Error fetching conversations:', error);
@@ -30,7 +30,7 @@ export const useMessaging = () => {
   // Fetch messages for active conversation
   const fetchMessages = useCallback(async (conversationId: string) => {
     try {
-      const msgs = await messageService.getByConversationId(conversationId);
+      const msgs = await messagingService.getMessages(conversationId);
       setMessages(msgs);
       
       // Mark messages as read
@@ -41,7 +41,7 @@ export const useMessaging = () => {
       
       if (unreadMessages.length > 0 && user) {
         await Promise.all(
-          unreadMessages.map(msg => messageService.markAsRead(msg.id, user.id))
+          unreadMessages.map(msg => messagingService.markMessageAsRead(msg.id))
         );
       }
     } catch (error) {
@@ -81,9 +81,8 @@ export const useMessaging = () => {
       
       setMessages(prev => [...prev, optimisticMessage]);
 
-      const message = await messageService.create(
+      const message = await messagingService.sendMessage(
         activeConversation.id,
-        user.id,
         content.trim(),
         messageType
       );
@@ -122,7 +121,7 @@ export const useMessaging = () => {
     if (!user) return null;
 
     try {
-      const conversation = await conversationService.create(businessUserId, expertUserId, subject);
+      const conversation = await messagingService.createOrGetConversation(businessUserId, expertUserId, subject);
       if (conversation) {
         setConversations(prev => [conversation, ...prev]);
         setActiveConversation(conversation);
@@ -141,7 +140,7 @@ export const useMessaging = () => {
 
     try {
       await Promise.all(
-        messageIds.map(messageId => messageService.markAsRead(messageId, user.id))
+        messageIds.map(messageId => messagingService.markMessageAsRead(messageId))
       );
     } catch (error) {
       console.error('Error marking messages as read:', error);
@@ -274,14 +273,14 @@ export const useMessaging = () => {
 
     const handleBeforeUnload = () => updateOnlineStatus(false);
     const handleVisibilityChange = () => {
-      updateOnlineStatus(!document.hidden);
+      messagingService.updateOnlineStatus(!document.hidden);
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      updateOnlineStatus(false);
+      messagingService.updateOnlineStatus(false);
       window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };

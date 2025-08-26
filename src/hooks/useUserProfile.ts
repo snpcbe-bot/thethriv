@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from './useAuth';
-import { userProfileService, businessProfileService, expertProfileService } from '../lib/database';
+import { userService } from '../services/userService';
+import { businessService } from '../services/businessService';
+import { expertService } from '../services/expertService';
 import type { UserProfile, BusinessProfile, ExpertProfile } from '../types';
 
 export const useUserProfile = () => {
@@ -26,16 +28,16 @@ export const useUserProfile = () => {
         setError(null);
 
         // Fetch user profile
-        const userProfile = await userProfileService.getByUserId(user.id);
+        const userProfile = await userService.getByUserId(user.id);
         setProfile(userProfile);
 
         if (userProfile) {
           // Fetch role-specific profile
           if (userProfile.role === 'business') {
-            const bizProfile = await businessProfileService.getByUserId(user.id);
+            const bizProfile = await businessService.getByUserId(user.id);
             setBusinessProfile(bizProfile);
           } else if (userProfile.role === 'expert') {
-            const expProfile = await expertProfileService.getByUserId(user.id);
+            const expProfile = await expertService.getByUserId(user.id);
             setExpertProfile(expProfile);
           }
         }
@@ -54,7 +56,7 @@ export const useUserProfile = () => {
     if (!profile) return null;
 
     try {
-      const updated = await userProfileService.update(profile.id, updates);
+      const updated = await userService.update(profile.id, updates);
       if (updated) {
         setProfile(updated);
       }
@@ -70,7 +72,7 @@ export const useUserProfile = () => {
     if (!businessProfile) return null;
 
     try {
-      const updated = await businessProfileService.update(businessProfile.id, updates);
+      const updated = await businessService.update(businessProfile.id, updates);
       if (updated) {
         setBusinessProfile(updated);
       }
@@ -86,7 +88,7 @@ export const useUserProfile = () => {
     if (!expertProfile) return null;
 
     try {
-      const updated = await expertProfileService.update(expertProfile.id, updates);
+      const updated = await expertService.update(expertProfile.id, updates);
       if (updated) {
         setExpertProfile(updated);
       }
