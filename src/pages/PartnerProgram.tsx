@@ -88,7 +88,7 @@ const PartnerProgram = () => {
           >
             <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full mb-6">
               <Handshake className="w-4 h-4 text-blue-600 mr-2" />
-              <span className="text-sm font-medium text-blue-900">Partner Program</span>
+              <span className="text-sm font-medium text-blue-900">Partner Page</span>
             </div>
             <h1 className="text-6xl font-bold text-slate-900 mb-8">
               Partner with Thethriv

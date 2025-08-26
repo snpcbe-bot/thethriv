@@ -25,7 +25,6 @@ const Navigation = () => {
 
   const resourceLinks = [
     { name: 'About Us', href: '/about', description: 'Our mission and story' },
-    { name: 'About Us', href: '/about', description: 'Our mission and story' },
     { name: 'Blog', href: '/blog', description: 'SEO & growth tips' },
     { name: 'Resources Library', href: '/resources', description: 'Guides, templates, eBooks' },
     { name: 'Partner Page', href: '/partners', description: 'For chambers & co-working hubs' },

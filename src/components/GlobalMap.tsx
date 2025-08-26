@@ -32,54 +32,69 @@ const GlobalMap = () => {
     <div className="relative bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-12 overflow-hidden">
       {/* World Map SVG */}
       <div className="relative h-96 bg-white rounded-2xl overflow-hidden shadow-inner">
-        <svg className="w-full h-full" viewBox="0 0 100 60" fill="none">
-          {/* World Map Continents */}
+        <svg className="w-full h-full" viewBox="0 0 1000 500" fill="none">
           {/* North America */}
           <path
-            d="M8,15 Q12,12 18,15 Q22,18 25,22 Q20,25 15,28 Q10,25 8,20 Z"
+            d="M50,150 Q80,120 120,130 Q160,140 200,160 Q220,180 210,220 Q190,250 170,280 Q140,300 110,290 Q80,270 60,240 Q40,200 50,150 Z"
             fill="#e2e8f0"
             stroke="#cbd5e1"
-            strokeWidth="0.2"
+            strokeWidth="2"
           />
           
           {/* South America */}
           <path
-            d="M25,45 Q28,42 32,48 Q35,55 32,65 Q28,75 25,78 Q22,72 20,65 Q22,55 25,45 Z"
+            d="M180,320 Q200,300 220,320 Q240,350 250,400 Q260,450 250,480 Q230,500 210,490 Q190,470 180,440 Q170,400 175,360 Q175,340 180,320 Z"
             fill="#e2e8f0"
             stroke="#cbd5e1"
-            strokeWidth="0.2"
+            strokeWidth="2"
           />
           
           {/* Europe */}
           <path
-            d="M45,25 Q50,22 55,25 Q58,28 55,32 Q52,35 48,32 Q45,28 45,25 Z"
+            d="M450,120 Q480,110 520,120 Q550,130 570,150 Q580,170 570,190 Q550,210 520,200 Q490,190 470,170 Q450,150 450,120 Z"
             fill="#e2e8f0"
             stroke="#cbd5e1"
-            strokeWidth="0.2"
+            strokeWidth="2"
           />
           
           {/* Africa */}
           <path
-            d="M48,35 Q52,32 56,38 Q58,45 55,55 Q52,62 48,58 Q45,50 48,42 Q46,38 48,35 Z"
+            d="M480,220 Q520,210 560,230 Q580,260 570,300 Q560,340 550,380 Q540,420 520,440 Q500,450 480,440 Q460,420 450,380 Q440,340 450,300 Q460,260 480,220 Z"
             fill="#e2e8f0"
             stroke="#cbd5e1"
-            strokeWidth="0.2"
+            strokeWidth="2"
           />
           
           {/* Asia */}
           <path
-            d="M58,20 Q65,18 75,22 Q82,28 78,35 Q75,42 70,45 Q65,42 62,38 Q58,32 58,25 Q56,22 58,20 Z"
+            d="M580,100 Q620,90 680,100 Q740,110 800,130 Q820,150 810,180 Q800,210 780,240 Q750,260 720,250 Q690,240 660,220 Q630,200 610,170 Q590,140 580,100 Z"
             fill="#e2e8f0"
             stroke="#cbd5e1"
-            strokeWidth="0.2"
+            strokeWidth="2"
           />
           
           {/* Australia */}
           <path
-            d="M82,70 Q88,68 92,72 Q90,78 85,80 Q82,78 80,75 Q82,72 82,70 Z"
+            d="M820,350 Q860,340 900,350 Q920,370 910,390 Q900,410 880,420 Q860,425 840,420 Q820,410 815,390 Q815,370 820,350 Z"
             fill="#e2e8f0"
             stroke="#cbd5e1"
-            strokeWidth="0.2"
+            strokeWidth="2"
+          />
+          
+          {/* Greenland */}
+          <path
+            d="M350,50 Q380,40 400,50 Q420,60 415,80 Q410,100 390,110 Q370,115 350,110 Q330,100 325,80 Q325,60 350,50 Z"
+            fill="#e2e8f0"
+            stroke="#cbd5e1"
+            strokeWidth="2"
+          />
+          
+          {/* Antarctica */}
+          <path
+            d="M100,450 Q300,440 500,445 Q700,450 900,455 Q900,480 700,485 Q500,490 300,485 Q100,480 100,450 Z"
+            fill="#e2e8f0"
+            stroke="#cbd5e1"
+            strokeWidth="2"
           />
         </svg>
         
