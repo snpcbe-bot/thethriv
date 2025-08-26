@@ -26,8 +26,8 @@ const ExpertSearchPage: React.FC = () => {
   } = useExpertSearch();
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 pt-32">
+      <div className="container-width">
         {/* Search Header */}
         <SearchHeader
           query={query}
@@ -47,27 +47,27 @@ const ExpertSearchPage: React.FC = () => {
         />
 
         {/* Results Section */}
-        <div className="py-8">
+        <div className="py-12">
           {/* Results Header */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
             <div className="flex items-center space-x-4">
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-slate-900">
                 {loading ? 'Searching...' : `${total.toLocaleString()} experts found`}
               </h2>
               {query && (
-                <span className="text-gray-500">
+                <span className="text-slate-500">
                   for "{query}"
                 </span>
               )}
             </div>
 
             {/* Sort Dropdown */}
-            <div className="flex items-center space-x-2">
-              <label className="text-sm font-medium text-gray-700">Sort by:</label>
+            <div className="flex items-center space-x-3">
+              <label className="text-sm font-medium text-slate-700 whitespace-nowrap">Sort by:</label>
               <select
                 value={filters.sort}
                 onChange={(e) => updateFilters({ sort: e.target.value as any })}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-sm"
               >
                 <option value="relevance">Relevance</option>
                 <option value="followers">Most Followers</option>
@@ -81,9 +81,13 @@ const ExpertSearchPage: React.FC = () => {
 
           {/* Error State */}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
-              <p className="text-red-700">Error: {error}</p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8"
+            >
+              <p className="text-red-700 font-medium">Error: {error}</p>
+            </motion.div>
           )}
 
           {/* Loading State */}
@@ -98,17 +102,17 @@ const ExpertSearchPage: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-center py-16"
+                  className="text-center py-20"
                 >
-                  <div className="text-6xl mb-4">🔍</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">No experts found</h3>
-                  <p className="text-gray-600 mb-6">
-                    Try adjusting your search criteria or clearing some filters
+                  <div className="text-8xl mb-6">🔍</div>
+                  <h3 className="text-3xl font-bold text-slate-900 mb-4">No experts found</h3>
+                  <p className="text-large text-slate-600 mb-8 max-w-md mx-auto">
+                    Try adjusting your search criteria or clearing some filters to see more results
                   </p>
                   {hasActiveFilters && (
                     <button
                       onClick={clearFilters}
-                      className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
+                      className="btn-primary"
                     >
                       Clear All Filters
                     </button>
@@ -118,11 +122,13 @@ const ExpertSearchPage: React.FC = () => {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <Pagination
-                  currentPage={page}
-                  totalPages={totalPages}
-                  onPageChange={setPage}
-                />
+                <div className="mt-16">
+                  <Pagination
+                    currentPage={page}
+                    totalPages={totalPages}
+                    onPageChange={setPage}
+                  />
+                </div>
               )}
             </>
           )}

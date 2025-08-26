@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Menu, X, User, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import AnimatedGlobeLogo from './AnimatedGlobeLogo';
 import AuthModal from './auth/AuthModal';
@@ -18,8 +18,7 @@ const Navigation = () => {
     { name: 'Search', href: '/search' },
     { name: 'Pricing', href: '/pricing' },
     { name: 'Resources', href: '/resources' },
-    { name: 'About', href: '/about' },
-    { name: 'Blog', href: '/blog' }
+    { name: 'About', href: '/about' }
   ];
 
   const isActive = (href: string) => {
@@ -31,35 +30,41 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Sticky Banner */}
-      <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 px-4 text-center z-50 shadow-lg">
-        <div className="max-w-7xl mx-auto">
+      {/* Professional Banner */}
+      <motion.div 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className="fixed top-0 left-0 right-0 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 text-white py-3 px-4 text-center z-50 shadow-lg"
+      >
+        <div className="container-width">
           <p className="text-sm font-medium">
-            🎉 Free Listings for All Users — Join Now! Free access until September 2025, no credit card required.
+            🚀 Free access until September 2025 — Join 10,000+ businesses growing with verified experts
           </p>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm border-b border-gray-100 sticky top-12 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+      {/* Main Navigation */}
+      <nav className="bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/50 sticky top-12 z-40">
+        <div className="container-width">
+          <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-3 group">
               <AnimatedGlobeLogo size="md" />
-              <span className="text-2xl font-bold text-gray-900">Thriv</span>
+              <span className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                Thriv
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-1">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                     isActive(item.href)
-                      ? 'text-blue-600 border-b-2 border-blue-600'
-                      : 'text-gray-700 hover:text-blue-600'
+                      ? 'text-blue-600 bg-blue-50'
+                      : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
                   }`}
                 >
                   {item.name}
@@ -68,38 +73,46 @@ const Navigation = () => {
             </div>
 
             {/* Auth Section */}
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-4">
               {user ? (
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
                   <Link
                     to="/dashboard"
-                    className="text-gray-700 hover:text-blue-600 font-medium"
+                    className="text-slate-700 hover:text-blue-600 font-medium transition-colors"
                   >
                     Dashboard
                   </Link>
                   <button
                     onClick={signOut}
-                    className="text-gray-700 hover:text-blue-600 font-medium"
+                    className="text-slate-700 hover:text-blue-600 font-medium transition-colors"
                   >
                     Sign Out
                   </button>
                 </div>
               ) : (
-                <button
-                  onClick={() => setShowAuthModal(true)}
-                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  <User className="w-4 h-4 mr-2" />
-                  Sign In
-                </button>
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => setShowAuthModal(true)}
+                    className="text-slate-700 hover:text-blue-600 font-medium transition-colors"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => setShowAuthModal(true)}
+                    className="btn-primary group"
+                  >
+                    Get Started
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
               )}
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                className="p-2 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-slate-100 transition-colors"
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -108,65 +121,66 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t border-gray-100"
-          >
-            <div className="px-4 py-4 space-y-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
-                    isActive(item.href)
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
-              {user ? (
-                <div className="pt-4 border-t border-gray-200 space-y-2">
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden bg-white border-t border-slate-200"
+            >
+              <div className="px-6 py-6 space-y-3">
+                {navigation.map((item) => (
                   <Link
-                    to="/dashboard"
-                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+                    key={item.name}
+                    to={item.href}
+                    className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
+                      isActive(item.href)
+                        ? 'text-blue-600 bg-blue-50'
+                        : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                    }`}
                     onClick={() => setIsOpen(false)}
                   >
-                    Dashboard
+                    {item.name}
                   </Link>
-                  <button
-                    onClick={() => {
-                      signOut();
-                      setIsOpen(false);
-                    }}
-                    className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              ) : (
-                <div className="pt-4 border-t border-gray-200">
-                  <button
-                    onClick={() => {
-                      setShowAuthModal(true);
-                      setIsOpen(false);
-                    }}
-                    className="flex items-center w-full px-3 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    <User className="w-4 h-4 mr-2" />
-                    Sign In
-                  </button>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
+                ))}
+                
+                {user ? (
+                  <div className="pt-4 border-t border-slate-200 space-y-3">
+                    <Link
+                      to="/dashboard"
+                      className="block px-4 py-3 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => {
+                        signOut();
+                        setIsOpen(false);
+                      }}
+                      className="block w-full text-left px-4 py-3 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                ) : (
+                  <div className="pt-4 border-t border-slate-200 space-y-3">
+                    <button
+                      onClick={() => {
+                        setShowAuthModal(true);
+                        setIsOpen(false);
+                      }}
+                      className="w-full btn-primary"
+                    >
+                      Get Started
+                    </button>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Auth Modal */}

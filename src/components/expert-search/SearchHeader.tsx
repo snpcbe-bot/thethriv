@@ -22,70 +22,70 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({
   onTypeChange
 }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-8 mb-6">
+    <div className="bg-white rounded-3xl shadow-soft p-12 mb-8 border border-slate-200">
       {/* Title */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="text-center mb-12">
+        <h1 className="text-section-title text-slate-900 mb-6">
           Find Your Perfect Expert
         </h1>
-        <p className="text-xl text-gray-600">
-          Connect with verified SEO experts and influencers worldwide
+        <p className="text-large text-slate-600 max-w-2xl mx-auto">
+          Connect with verified SEO experts and influencers from around the world
         </p>
       </div>
 
       {/* Search Input */}
-      <div className="relative mb-8">
-        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" />
+      <div className="relative mb-12">
+        <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 w-6 h-6 text-slate-400" />
         <input
           type="text"
           placeholder="Search by name, skills, or expertise..."
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
-          className="w-full pl-14 pr-6 py-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full pl-16 pr-8 py-5 text-lg border border-slate-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm bg-white"
           style={{ fontSize: '16px' }} // Prevent iOS zoom
         />
       </div>
 
       {/* Expert Type Tabs */}
       <div className="flex justify-center">
-        <div className="inline-flex bg-gray-100 rounded-xl p-1">
+        <div className="inline-flex bg-slate-100 rounded-2xl p-2 shadow-sm">
           <button
             onClick={() => onTypeChange(undefined)}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+            className={`px-8 py-4 rounded-xl font-semibold transition-all duration-200 ${
               !activeType
                 ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             All Experts
-            <span className="ml-2 text-sm opacity-75">
-              ({expertCounts.all.toLocaleString()})
+            <span className="ml-3 text-sm opacity-75 bg-slate-200 px-2 py-1 rounded-full">
+              {expertCounts.all.toLocaleString()}
             </span>
           </button>
           <button
             onClick={() => onTypeChange('seo')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+            className={`px-8 py-4 rounded-xl font-semibold transition-all duration-200 ${
               activeType === 'seo'
                 ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             SEO Experts
-            <span className="ml-2 text-sm opacity-75">
-              ({expertCounts.seo.toLocaleString()})
+            <span className="ml-3 text-sm opacity-75 bg-slate-200 px-2 py-1 rounded-full">
+              {expertCounts.seo.toLocaleString()}
             </span>
           </button>
           <button
             onClick={() => onTypeChange('influencer')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+            className={`px-8 py-4 rounded-xl font-semibold transition-all duration-200 ${
               activeType === 'influencer'
                 ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Influencers
-            <span className="ml-2 text-sm opacity-75">
-              ({expertCounts.influencer.toLocaleString()})
+            <span className="ml-3 text-sm opacity-75 bg-slate-200 px-2 py-1 rounded-full">
+              {expertCounts.influencer.toLocaleString()}
             </span>
           </button>
         </div>
