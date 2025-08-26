@@ -1,79 +1,117 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Globe, Mail, MapPin } from 'lucide-react';
+import { Globe, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import AnimatedGlobeLogo from './AnimatedGlobeLogo';
 
 const Footer = () => {
+  const footerSections = [
+    {
+      title: 'Platform',
+      links: [
+        { name: 'For Business', href: '/business' },
+        { name: 'For Experts', href: '/experts' },
+        { name: 'Search Experts', href: '/search' },
+        { name: 'Pricing', href: '/pricing' }
+      ]
+    },
+    {
+      title: 'Resources',
+      links: [
+        { name: 'Resource Library', href: '/resources' },
+        { name: 'Blog', href: '/blog' },
+        { name: 'Partner Program', href: '/partners' },
+        { name: 'About Us', href: '/about' }
+      ]
+    },
+    {
+      title: 'Support',
+      links: [
+        { name: 'Help Center', href: '#' },
+        { name: 'Contact Us', href: '#' },
+        { name: 'API Documentation', href: '#' },
+        { name: 'Status Page', href: '#' }
+      ]
+    },
+    {
+      title: 'Legal',
+      links: [
+        { name: 'Privacy Policy', href: '#' },
+        { name: 'Terms of Service', href: '#' },
+        { name: 'GDPR Compliance', href: '#' },
+        { name: 'Cookie Policy', href: '#' }
+      ]
+    }
+  ];
+
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
+    <footer className="bg-slate-900 text-white">
+      <div className="container-width py-20">
+        <div className="grid lg:grid-cols-6 gap-12">
           {/* Company Info */}
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <AnimatedGlobeLogo size="sm" />
-              <span className="text-xl font-bold">Thriv</span>
+          <div className="lg:col-span-2">
+            <div className="flex items-center space-x-3 mb-6">
+              <AnimatedGlobeLogo size="md" />
+              <span className="text-2xl font-bold">Thriv</span>
             </div>
-            <p className="text-gray-400 mb-4">
-              Quality expertise made accessible: linking small businesses with trusted, curated expertise.
+            <p className="text-slate-400 mb-8 leading-relaxed text-large">
+              Quality expertise made accessible: connecting small businesses with trusted, 
+              verified professionals worldwide.
             </p>
-            <div className="flex items-center space-x-2 text-sm text-gray-400">
-              <MapPin className="w-4 h-4" />
-              <span>Registered in Germany</span>
+            
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 text-slate-400">
+                <MapPin className="w-5 h-5" />
+                <span>Registered in Germany</span>
+              </div>
+              <div className="flex items-center space-x-3 text-slate-400">
+                <Mail className="w-5 h-5" />
+                <a href="mailto:hello@thriv.com" className="hover:text-white transition-colors">
+                  hello@thriv.com
+                </a>
+              </div>
+              <div className="flex items-center space-x-3 text-slate-400">
+                <Globe className="w-5 h-5" />
+                <span>Available in 25+ countries</span>
+              </div>
             </div>
           </div>
 
-          {/* Solutions */}
-          <div>
-            <h3 className="font-semibold mb-4">Solutions</h3>
-            <ul className="space-y-3 text-gray-400">
-              <li><Link to="/business" className="hover:text-white transition-colors">For Business</Link></li>
-              <li><Link to="/experts" className="hover:text-white transition-colors">For Experts</Link></li>
-              <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors">API Access</a></li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h3 className="font-semibold mb-4">Resources</h3>
-            <ul className="space-y-3 text-gray-400">
-              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-              <li><Link to="/resources" className="hover:text-white transition-colors">Resources Library</Link></li>
-              <li><Link to="/partners" className="hover:text-white transition-colors">Partner Page</Link></li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">GDPR Compliance</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Cookie Policy</a></li>
-            </ul>
-          </div>
+          {/* Footer Links */}
+          {footerSections.map((section, index) => (
+            <div key={section.title}>
+              <h3 className="font-bold text-white mb-6 text-lg">{section.title}</h3>
+              <ul className="space-y-4">
+                {section.links.map((link) => (
+                  <li key={link.name}>
+                    <Link 
+                      to={link.href} 
+                      className="text-slate-400 hover:text-white transition-colors flex items-center group"
+                    >
+                      {link.name}
+                      <ArrowRight className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
+        <div className="border-t border-slate-800 mt-16 pt-8">
+          <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
+            <div className="text-slate-400">
               © 2025 Thriv. All rights reserved.
             </div>
             
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2 text-sm text-gray-400">
-                <Globe className="w-4 h-4" />
-                <span>Available in 10+ countries</span>
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-2 text-sm text-slate-400">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span>All systems operational</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-400">
-                <Mail className="w-4 h-4" />
-                <a href="mailto:hello@thethriv.com" className="hover:text-white transition-colors">
-                  hello@thriv.com
-                </a>
+              <div className="text-sm text-slate-400">
+                Made with ❤️ in Germany
               </div>
             </div>
           </div>

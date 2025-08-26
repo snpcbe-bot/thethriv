@@ -1,5 +1,6 @@
 import React from 'react';
-import { MapPin, Star, Users, Briefcase, Clock, CheckCircle, ExternalLink } from 'lucide-react';
+import { MapPin, Star, Users, Briefcase, Clock, CheckCircle, ExternalLink, MessageSquare } from 'lucide-react';
+import { motion } from 'framer-motion';
 import type { Expert } from '../../types/expert';
 
 interface ExpertCardProps {
@@ -26,53 +27,58 @@ const ExpertCard: React.FC<ExpertCardProps> = ({ expert }) => {
 
   const getPriceColor = (range?: string) => {
     switch (range) {
-      case 'budget': return 'text-green-600 bg-green-50';
-      case 'mid': return 'text-blue-600 bg-blue-50';
-      case 'premium': return 'text-purple-600 bg-purple-50';
-      default: return 'text-gray-600 bg-gray-50';
+      case 'budget': return 'text-green-600 bg-green-50 border-green-200';
+      case 'mid': return 'text-blue-600 bg-blue-50 border-blue-200';
+      case 'premium': return 'text-purple-600 bg-purple-50 border-purple-200';
+      default: return 'text-slate-600 bg-slate-50 border-slate-200';
     }
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 p-6 border border-gray-100">
+    <motion.div
+      whileHover={{ y: -8 }}
+      className="bg-white rounded-2xl shadow-soft hover:shadow-large transition-all duration-300 p-8 border border-slate-100 group"
+    >
       {/* Header */}
-      <div className="flex items-start space-x-4 mb-4">
+      <div className="flex items-start space-x-4 mb-6">
         <div className="relative">
           <img
-            src={expert.profile_image_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(expert.name)}&background=3b82f6&color=fff&size=64`}
+            src={expert.profile_image_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(expert.name)}&background=3b82f6&color=fff&size=80`}
             alt={expert.name}
-            className="w-16 h-16 rounded-full object-cover"
+            className="w-20 h-20 rounded-2xl object-cover shadow-medium"
             loading="lazy"
           />
           {expert.verified && (
-            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-              <CheckCircle className="w-4 h-4 text-white" />
+            <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-medium">
+              <CheckCircle className="w-5 h-5 text-white" />
             </div>
           )}
         </div>
         
         <div className="flex-1 min-w-0">
-          <div className="flex items-center space-x-2 mb-1">
-            <h3 className="font-bold text-lg text-gray-900 truncate">{expert.name}</h3>
+          <div className="flex items-start justify-between mb-2">
+            <h3 className="font-bold text-xl text-slate-900 group-hover:text-blue-600 transition-colors">
+              {expert.name}
+            </h3>
             {expert.verified && (
-              <span className="inline-flex items-center px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+              <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full border border-green-200">
                 Verified
               </span>
             )}
           </div>
           
-          <div className="flex items-center text-gray-600 text-sm mb-2">
-            <MapPin className="w-4 h-4 mr-1" />
-            <span className="truncate">
+          <div className="flex items-center text-slate-600 mb-3">
+            <MapPin className="w-4 h-4 mr-2" />
+            <span className="text-sm">
               {expert.city ? `${expert.city}, ${expert.country}` : expert.country}
             </span>
           </div>
           
           <div className="flex items-center justify-between">
-            <span className={`px-3 py-1 rounded-full text-sm font-medium ${getPriceColor(expert.price_range)}`}>
+            <span className={`px-4 py-2 rounded-xl text-sm font-semibold border ${getPriceColor(expert.price_range)}`}>
               {getPriceDisplay(expert.price_range, expert.hourly_rate)}
             </span>
-            <span className="text-sm text-gray-500 capitalize">
+            <span className="text-sm text-slate-500 font-medium capitalize bg-slate-100 px-3 py-1 rounded-lg">
               {expert.expert_type === 'seo' ? 'SEO Expert' : 'Influencer'}
             </span>
           </div>
@@ -81,19 +87,19 @@ const ExpertCard: React.FC<ExpertCardProps> = ({ expert }) => {
 
       {/* Skills */}
       {expert.skills.length > 0 && (
-        <div className="mb-4">
+        <div className="mb-6">
           <div className="flex flex-wrap gap-2">
-            {expert.skills.slice(0, 3).map((skill, index) => (
+            {expert.skills.slice(0, 4).map((skill, index) => (
               <span
                 key={index}
-                className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+                className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg font-medium border border-slate-200"
               >
                 {skill}
               </span>
             ))}
-            {expert.skills.length > 3 && (
-              <span className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">
-                +{expert.skills.length - 3} more
+            {expert.skills.length > 4 && (
+              <span className="px-3 py-1 bg-slate-100 text-slate-500 text-sm rounded-lg font-medium border border-slate-200">
+                +{expert.skills.length - 4} more
               </span>
             )}
           </div>
@@ -102,52 +108,60 @@ const ExpertCard: React.FC<ExpertCardProps> = ({ expert }) => {
 
       {/* Bio */}
       {expert.bio && (
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+        <p className="text-slate-600 mb-6 leading-relaxed line-clamp-3">
           {expert.bio}
         </p>
       )}
 
       {/* Metrics */}
-      <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+      <div className="grid grid-cols-2 gap-6 mb-6">
         {expert.expert_type === 'influencer' ? (
           <>
-            <div className="flex items-center space-x-2">
-              <Users className="w-4 h-4 text-gray-400" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Users className="w-5 h-5 text-blue-600" />
+              </div>
               <div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-bold text-slate-900 text-lg">
                   {formatNumber(expert.follower_count)}
                 </div>
-                <div className="text-gray-500">Followers</div>
+                <div className="text-slate-500 text-sm">Followers</div>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Star className="w-4 h-4 text-gray-400" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <Star className="w-5 h-5 text-purple-600" />
+              </div>
               <div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-bold text-slate-900 text-lg">
                   {expert.engagement_rate}%
                 </div>
-                <div className="text-gray-500">Engagement</div>
+                <div className="text-slate-500 text-sm">Engagement</div>
               </div>
             </div>
           </>
         ) : (
           <>
-            <div className="flex items-center space-x-2">
-              <Briefcase className="w-4 h-4 text-gray-400" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <Briefcase className="w-5 h-5 text-green-600" />
+              </div>
               <div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-bold text-slate-900 text-lg">
                   {expert.years_experience}
                 </div>
-                <div className="text-gray-500">Years Exp.</div>
+                <div className="text-slate-500 text-sm">Years Exp.</div>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Users className="w-4 h-4 text-gray-400" />
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Users className="w-5 h-5 text-orange-600" />
+              </div>
               <div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-bold text-slate-900 text-lg">
                   {expert.client_count}
                 </div>
-                <div className="text-gray-500">Clients</div>
+                <div className="text-slate-500 text-sm">Clients</div>
               </div>
             </div>
           </>
@@ -155,17 +169,18 @@ const ExpertCard: React.FC<ExpertCardProps> = ({ expert }) => {
       </div>
 
       {/* Response Time */}
-      <div className="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+      <div className="flex items-center space-x-2 text-sm text-slate-500 mb-8 bg-slate-50 px-4 py-2 rounded-lg">
         <Clock className="w-4 h-4" />
         <span>Responds within {expert.response_time_hours}h</span>
       </div>
 
       {/* Actions */}
       <div className="flex space-x-3">
-        <button className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+        <button className="flex-1 px-6 py-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-all duration-200 font-semibold shadow-sm hover:shadow-md">
           View Profile
         </button>
-        <button className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+        <button className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 font-semibold shadow-medium hover:shadow-large flex items-center justify-center group">
+          <MessageSquare className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
           Contact
         </button>
         {expert.website_url && (
@@ -173,13 +188,13 @@ const ExpertCard: React.FC<ExpertCardProps> = ({ expert }) => {
             href={expert.website_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            className="p-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 transition-all duration-200 shadow-sm hover:shadow-md"
           >
             <ExternalLink className="w-5 h-5" />
           </a>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
