@@ -38,8 +38,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={`relative bg-white rounded-3xl p-8 transition-all duration-300 ${
         highlighted
-          ? 'border-2 border-blue-500 shadow-2xl scale-105 z-10'
-          : 'border border-slate-200 shadow-lg hover:shadow-2xl hover:-translate-y-2'
+          ? 'border-2 border-blue-500 shadow-xl scale-105 z-10'
+          : 'border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-2'
       } flex flex-col h-full`}
     >
       {badge && (
@@ -57,7 +57,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
       )}
       
       <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-slate-900 mb-4">{name}</h3>
+        <h3 className="text-xl font-bold text-slate-900 mb-3">{name}</h3>
         
         <div className="mb-4">
           {offerPrice ? (
@@ -66,36 +66,36 @@ const PricingCard: React.FC<PricingCardProps> = ({
                 <span className="text-5xl font-bold text-slate-900">
                   ${offerPrice}
                 </span>
-                <span className="text-2xl text-slate-400 line-through">
+                <span className="text-xl text-slate-400 line-through">
                   ${originalPrice}
                 </span>
               </div>
-              <div className="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
+              <div className="inline-flex items-center px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
                 Save ${(originalPrice || 0) - offerPrice}
               </div>
             </div>
           ) : (
-            <div className="text-5xl font-bold text-slate-900">
+            <div className="text-4xl font-bold text-slate-900">
               {price === 0 ? 'Free' : `$${price}`}
             </div>
           )}
-          <div className="text-slate-500 mt-2">/{period}</div>
+          <div className="text-sm text-slate-500 mt-1">/{period}</div>
         </div>
         
-        <p className="text-slate-600">{description}</p>
+        <p className="text-sm text-slate-600">{description}</p>
       </div>
       
       <ul className="space-y-4 mb-8">
         {features.map((feature, featureIndex) => (
           <li key={featureIndex} className="flex items-start space-x-3">
             <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-1" />
-            <span className="text-slate-700">{feature}</span>
+            <span className="text-sm text-slate-700">{feature}</span>
           </li>
         ))}
       </ul>
       
       <button
-        className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-200 ${
+        className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 ${
           highlighted
             ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl'
             : 'bg-slate-100 text-slate-900 hover:bg-slate-200'

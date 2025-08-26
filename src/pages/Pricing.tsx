@@ -116,7 +116,7 @@ const Pricing = () => {
         'Featured badge'
       ],
       highlighted: true,
-      ctaText: 'Go Premium',
+      ctaText: 'Go Monthly',
       badge: 'Most Popular',
       popular: true
     },
@@ -181,18 +181,14 @@ const Pricing = () => {
 
   return (
     <div className="pt-32">
-      {/* Minimal Header with Tab Switcher */}
-      <section className="py-6 bg-white">
+      {/* Tab Switcher at Very Top */}
+      <section className="py-2 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-semibold text-slate-700">
-              Pricing
-            </h1>
-            
-            {/* Tab Switcher - Top Right Corner */}
-            <div className="inline-flex items-center bg-slate-100 p-1 rounded-lg text-sm">
+          <div className="flex justify-end">
+            {/* Tab Switcher - Very Top Right */}
+            <div className="inline-flex items-center bg-slate-100 p-1 rounded-lg text-xs">
               <button
-                className={`px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
+                className={`px-2 py-1 rounded-md font-medium transition-all duration-200 ${
                   activeTab === 'business'
                     ? 'bg-white text-blue-600 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
@@ -202,7 +198,7 @@ const Pricing = () => {
                 Business
               </button>
               <button
-                className={`px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
+                className={`px-2 py-1 rounded-md font-medium transition-all duration-200 ${
                   activeTab === 'experts'
                     ? 'bg-white text-purple-600 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
@@ -217,9 +213,9 @@ const Pricing = () => {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-8 bg-white">
+      <section className="py-4 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-4 gap-6">
+          <div className="grid lg:grid-cols-4 gap-4">
             {currentPlans.map((plan, index) => (
               <PricingCard
                 key={plan.name}
