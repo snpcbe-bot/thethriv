@@ -22,7 +22,7 @@ const AnimatedGlobeLogo: React.FC<AnimatedGlobeLogoProps> = ({
         className="w-full h-full relative"
         animate={{ rotateY: 360 }}
         transition={{
-          duration: 25,
+          duration: 20,
           repeat: Infinity,
           ease: "linear"
         }}
@@ -31,9 +31,9 @@ const AnimatedGlobeLogo: React.FC<AnimatedGlobeLogoProps> = ({
         <div className="w-full h-full relative">
           {/* Main Globe Circle */}
           <motion.div 
-            className="absolute inset-0 rounded-full border-2 border-slate-300"
+            className="absolute inset-0 rounded-full border-2"
             animate={{ 
-              borderColor: ['#cbd5e1', '#3b82f6', '#6366f1', '#8b5cf6', '#cbd5e1']
+              borderColor: ['#64748b', '#3b82f6', '#6366f1', '#8b5cf6', '#64748b']
             }}
             transition={{
               duration: 8,
@@ -151,33 +151,6 @@ const AnimatedGlobeLogo: React.FC<AnimatedGlobeLogoProps> = ({
             />
           </div>
           
-          {/* Orbital Rings */}
-          <motion.div 
-            className="absolute inset-0 rounded-full border border-blue-400/30"
-            style={{ transform: 'rotateX(75deg) scale(1.1)' }}
-            animate={{
-              rotateZ: 360
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-          
-          <motion.div 
-            className="absolute inset-0 rounded-full border border-purple-400/20"
-            style={{ transform: 'rotateY(75deg) scale(1.05)' }}
-            animate={{
-              rotateZ: -360
-            }}
-            transition={{
-              duration: 35,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-          
           {/* Soft Glow Effect */}
           <motion.div 
             className="absolute inset-0 rounded-full"
@@ -242,22 +215,6 @@ const AnimatedGlobeLogo: React.FC<AnimatedGlobeLogoProps> = ({
             }}
           />
         </div>
-        
-        {/* Outer Glow */}
-        <motion.div 
-          className="absolute inset-0 rounded-full blur-md scale-150 opacity-20"
-          style={{
-            background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)'
-          }}
-          animate={{
-            opacity: [0.1, 0.3, 0.1]
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
       </motion.div>
     </div>
   );

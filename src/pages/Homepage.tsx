@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Globe, DollarSign, CheckCircle, ArrowRight, Users, TrendingUp, Star } from 'lucide-react';
+import InteractiveWindow from '../components/InteractiveWindow';
 
 const Homepage = () => {
   const features = [
@@ -55,44 +56,43 @@ const Homepage = () => {
   ];
 
   return (
-    <div className="pt-32">
+    <div className="pt-16">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-40"></div>
-        <div className="container-width relative">
-          <div className="text-center max-w-5xl mx-auto">
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              <div className="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-slate-200 shadow-sm">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></div>
-                <span className="text-sm font-medium text-slate-700">Trusted by 10,000+ businesses worldwide</span>
+              <div className="space-y-6">
+                <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
+                  Quality expertise made{' '}
+                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    accessible
+                  </span>
+                </h1>
+                
+                <p className="text-xl text-slate-600 leading-relaxed">
+                  Connect with verified SEO experts, influencers, and specialists worldwide. 
+                  Transparent pricing, guaranteed quality, global reach.
+                </p>
               </div>
               
-              <h1 className="text-hero text-slate-900">
-                Quality expertise made{' '}
-                <span className="text-gradient">accessible</span>
-              </h1>
-              
-              <p className="text-large text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Connect with verified SEO experts, influencers, and specialists worldwide. 
-                Transparent pricing, guaranteed quality, global reach.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/search"
-                  className="btn-primary text-lg px-8 py-4 group"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-slate-900 text-white font-semibold rounded-xl hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl group"
                 >
                   Find Experts
                   <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   to="/join-expert"
-                  className="btn-secondary text-lg px-8 py-4"
+                  className="inline-flex items-center justify-center px-8 py-4 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-slate-400 hover:bg-slate-50 transition-all duration-200"
                 >
                   Join as Expert
                 </Link>
@@ -102,44 +102,51 @@ const Homepage = () => {
                 Free access until September 2025 • No credit card required
               </div>
             </motion.div>
+
+            {/* Right Interactive Window */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <InteractiveWindow />
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="section-padding bg-white">
-        <div className="container-width">
-          <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-3xl p-12 border border-slate-200">
-            <div className="grid md:grid-cols-3 gap-12 text-center">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group"
-                >
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-medium">
-                    <stat.icon className="w-10 h-10 text-white" />
-                  </div>
-                  <div className="text-4xl font-bold text-slate-900 mb-2">{stat.number}</div>
-                  <div className="text-lg font-medium text-slate-600">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <stat.icon className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-slate-900 mb-2">{stat.number}</div>
+                <div className="text-lg font-medium text-slate-600">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="section-padding bg-slate-50">
-        <div className="container-width">
-          <div className="text-center mb-20">
-            <h2 className="text-section-title text-slate-900 mb-6">
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">
               Why choose Thriv?
             </h2>
-            <p className="text-large text-slate-600 max-w-3xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
               We've built the most trusted platform for connecting businesses with verified expertise
             </p>
           </div>
@@ -152,12 +159,12 @@ const Homepage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-2 border border-slate-100"
+                className="bg-slate-50 rounded-2xl p-8 hover:bg-white hover:shadow-lg transition-all duration-300 hover:-translate-y-2 border border-slate-100"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-                  <feature.icon className="w-8 h-8 text-white" />
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
+                  <feature.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{feature.title}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-4">{feature.title}</h3>
                 <p className="text-slate-600 leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
@@ -166,13 +173,13 @@ const Homepage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="section-padding bg-white">
-        <div className="container-width">
-          <div className="text-center mb-20">
-            <h2 className="text-section-title text-slate-900 mb-6">
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">
               Trusted by growing businesses
             </h2>
-            <p className="text-large text-slate-600">
+            <p className="text-xl text-slate-600">
               See what our customers say about their experience
             </p>
           </div>
@@ -185,11 +192,11 @@ const Homepage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-8 border border-slate-200"
+                className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex items-center space-x-1 mb-6">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                   ))}
                 </div>
                 <blockquote className="text-slate-700 mb-6 leading-relaxed">
@@ -213,9 +220,8 @@ const Homepage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-10"></div>
-        <div className="container-width relative">
+      <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -223,23 +229,23 @@ const Homepage = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h2 className="text-section-title text-white mb-8">
+            <h2 className="text-4xl font-bold text-white mb-8">
               Ready to grow your business?
             </h2>
-            <p className="text-large text-blue-100 mb-12 max-w-3xl mx-auto">
+            <p className="text-xl text-blue-100 mb-12 max-w-3xl mx-auto">
               Join thousands of businesses finding success with verified experts on Thriv
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
                 to="/search"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl text-lg group"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl group"
               >
                 Start Free Today
                 <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/join-expert"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-200 text-lg"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-all duration-200"
               >
                 Join as Expert
               </Link>
