@@ -181,21 +181,18 @@ const Pricing = () => {
 
   return (
     <div className="pt-32">
-      {/* Header */}
-      <section className="py-16 bg-white">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">
-            Simple, transparent pricing
-          </h1>
-          <p className="text-lg text-slate-600 mb-6 max-w-3xl mx-auto">
-            Choose the plan that fits your needs. All plans include our core features.
-          </p>
-          
-          {/* Tab Switcher - Smaller and positioned top-right */}
-          <div className="flex justify-end mb-8">
-            <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl text-sm">
+      {/* Minimal Header with Tab Switcher */}
+      <section className="py-6 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-semibold text-slate-700">
+              Pricing
+            </h1>
+            
+            {/* Tab Switcher - Top Right Corner */}
+            <div className="inline-flex items-center bg-slate-100 p-1 rounded-lg text-sm">
               <button
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
                   activeTab === 'business'
                     ? 'bg-white text-blue-600 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
@@ -205,7 +202,7 @@ const Pricing = () => {
                 Business
               </button>
               <button
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
                   activeTab === 'experts'
                     ? 'bg-white text-purple-600 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900'
@@ -220,7 +217,7 @@ const Pricing = () => {
       </section>
 
       {/* Pricing Cards */}
-      <section className="pb-12 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-4 gap-6">
             {currentPlans.map((plan, index) => (
