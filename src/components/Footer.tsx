@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Globe, Mail, MapPin } from 'lucide-react';
+import AnimatedGlobeLogo from './AnimatedGlobeLogo';
 
 const Footer = () => {
   return (
@@ -10,10 +11,8 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">T</span>
-              </div>
-              <span className="text-xl font-bold">Thethriv</span>
+              <AnimatedGlobeLogo size="sm" />
+              <span className="text-xl font-bold">Thriv</span>
             </div>
             <p className="text-gray-400 mb-4">
               Quality expertise made accessible: linking small businesses with trusted, curated expertise.
@@ -62,7 +61,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2025 Thethriv. All rights reserved.
+              © 2025 Thriv. All rights reserved.
             </div>
             
             <div className="flex items-center space-x-6">

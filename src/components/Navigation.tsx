@@ -4,6 +4,7 @@ import { ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import AuthModal from './auth/AuthModal';
+import AnimatedGlobeLogo from './AnimatedGlobeLogo';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,10 +55,8 @@ const Navigation = () => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">T</span>
-              </div>
-              <span className="text-2xl font-bold text-gray-900">Thethriv</span>
+              <AnimatedGlobeLogo size="md" />
+              <span className="text-2xl font-bold text-gray-900">Thriv</span>
             </Link>
 
             {/* Desktop Navigation */}

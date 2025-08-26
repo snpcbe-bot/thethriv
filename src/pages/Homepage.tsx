@@ -55,10 +55,10 @@ const Homepage = () => {
               className="space-y-8"
             >
               <div className="space-y-6">
-                <div className="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full">
+                About Thriv
                   <Star className="w-4 h-4 text-blue-600 mr-2" />
                   <span className="text-sm font-medium text-blue-900">Quality expertise made accessible</span>
-                </div>
+                Join thousands of small businesses discovering trusted expertise on Thriv
                 
                 <h1 className="text-6xl lg:text-8xl font-bold text-slate-900 leading-none tracking-tight">
                   Quality expertise made{' '}

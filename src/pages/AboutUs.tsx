@@ -27,7 +27,7 @@ const AboutUs = () => {
   ];
 
   const milestones = [
-    { year: '2024', title: 'Founded', description: 'Thethriv was founded with a mission to democratize access to expertise' },
+    { year: '2024', title: 'Founded', description: 'Thriv was founded with a mission to democratize access to expertise' },
     { year: '2024', title: 'Platform Launch', description: 'Beta platform launched in 10 countries with 1,000+ experts' },
     { year: '2025', title: 'Global Expansion', description: 'Expanding to 20+ countries with 10,000+ verified experts' },
     { year: '2025', title: 'AI Integration', description: 'Introducing AI agents to complement human expertise' }
@@ -44,7 +44,7 @@ const AboutUs = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-6xl font-bold text-slate-900 mb-8">
-              About Thethriv
+              About Thriv
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-4xl mx-auto">
               We're on a mission to democratize access to quality expertise, helping small businesses 
@@ -182,7 +182,7 @@ const AboutUs = () => {
               Our Team
             </h2>
             <p className="text-xl text-blue-100 leading-relaxed max-w-4xl mx-auto">
-              Thethriv is designed to help small businesses access expertise without borders. 
+              Thriv is designed to help small businesses access expertise without borders. 
               We understand the challenges small businesses face because we've been there. Our team is 
               committed to building a platform that truly serves the needs of growing businesses and 
               the experts who support them.
