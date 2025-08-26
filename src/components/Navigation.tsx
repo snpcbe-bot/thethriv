@@ -41,12 +41,12 @@ const Navigation = () => {
   return (
     <>
       {/* Announcement Banner */}
-      <div className="bg-blue-600 text-white py-3 px-6 text-center font-semibold">
-        🎉 Free listings for all users until September 2025 — Join now!
+      <div className="fixed top-0 left-0 right-0 z-50 bg-blue-600 text-white py-3 px-6 text-center font-semibold shadow-lg">
+        🎉 Free Listings for All Users — Join Now! Free access until September 2025, no credit card required.
       </div>
 
       {/* Main Navigation */}
-      <nav className={`fixed top-12 left-0 right-0 z-50 transition-all duration-500 ${
+      <nav className={`fixed top-12 left-0 right-0 z-40 transition-all duration-500 ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-100' 
           : 'bg-transparent'
