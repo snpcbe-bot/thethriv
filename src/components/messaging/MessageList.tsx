@@ -6,9 +6,10 @@ import type { Message } from '../../types';
 interface MessageListProps {
   messages: Message[];
   currentUserId: string;
+  onlineUsers?: Set<string>;
 }
 
-const MessageList: React.FC<MessageListProps> = ({ messages, currentUserId }) => {
+const MessageList: React.FC<MessageListProps> = ({ messages, currentUserId, onlineUsers = new Set() }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {

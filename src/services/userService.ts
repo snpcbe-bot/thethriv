@@ -2,6 +2,22 @@ import { supabase } from '../lib/supabase'
 import type { UserProfile } from '../types'
 
 export class UserService {
+  async getProfile(userId: string): Promise<UserProfile | null> {
+    return this.getByUserId(userId)
+  }
+
+  async updateProfile(userId: string, updates: Partial<UserProfile>): Promise<UserProfile | null> {
+    try {
+      const profile = await this.getByUserId(userId)
+      if (!profile) return null
+      
+      return this.update(profile.id, updates)
+    } catch (error) {
+      console.error('Error updating profile:', error)
+      return null
+    }
+  }
+
   async create(data: Partial<UserProfile>): Promise<UserProfile | null> {
     try {
       const { data: profile, error } = await supabase

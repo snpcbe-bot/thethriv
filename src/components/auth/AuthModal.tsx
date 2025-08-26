@@ -43,14 +43,13 @@ const AuthModal: React.FC<AuthModalProps> = ({
 
     try {
       if (activeTab === 'signin') {
-        const { error } = await signIn(formData.email, formData.password)
-        if (error) throw error
+        await signIn(formData.email, formData.password)
       } else {
         if (formData.password !== formData.confirmPassword) {
           throw new Error('Passwords do not match')
         }
 
-        const signUpData: SignUpData = {
+        const signUpData = {
           email: formData.email,
           password: formData.password,
           full_name: formData.fullName,

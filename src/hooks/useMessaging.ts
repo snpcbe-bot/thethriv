@@ -266,21 +266,21 @@ export const useMessaging = () => {
     if (!user) return;
 
     const updateOnlineStatus = (online: boolean) => {
-      userProfileService.updateOnlineStatus(user.id, online);
+      userService.updateOnlineStatus(user.id, online);
     };
 
     updateOnlineStatus(true);
 
     const handleBeforeUnload = () => updateOnlineStatus(false);
     const handleVisibilityChange = () => {
-      messagingService.updateOnlineStatus(!document.hidden);
+      updateOnlineStatus(!document.hidden);
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      messagingService.updateOnlineStatus(false);
+      updateOnlineStatus(false);
       window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };

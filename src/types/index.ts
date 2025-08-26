@@ -132,6 +132,12 @@ export interface SignUpData {
   company_name?: string;
   expertise?: string;
   location: string;
+  industry?: string;
+  company_size?: string;
+  website?: string;
+  bio?: string;
+  hourly_rate?: number;
+  portfolio_url?: string;
 }
 
 export interface SignInData {

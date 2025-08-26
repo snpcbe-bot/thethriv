@@ -87,7 +87,7 @@ export class AuthService {
   }
 
   // Sign in existing user
-  async signIn(email: string, password: string) {
+  async signIn(email: string, password: string): Promise<{ data: any; error: any }> {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
