@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { Search, Filter, MapPin, Star, MessageSquare, Eye } from 'lucide-react'
 import { expertService } from '../services/expertService'
 import { messagingService } from '../services/messagingService'
-import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '../contexts/AuthContext'
 import type { ExpertProfile, UserProfile, ExpertSearchFilters } from '../types'
 
 type ExpertWithProfile = ExpertProfile & { user_profile: UserProfile }
