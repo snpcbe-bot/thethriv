@@ -5,32 +5,32 @@ import { Users, Globe, Target, Heart, Award, Zap } from 'lucide-react';
 const AboutUs = () => {
   const values = [
     {
-      icon: Heart,
-      title: 'Mission-Driven',
-      description: 'We believe quality expertise should be accessible to every small business, regardless of location or budget.'
-    },
-    {
-      icon: Globe,
-      title: 'Global Vision',
-      description: 'Breaking down geographical barriers to connect businesses with the best expertise worldwide.'
-    },
-    {
-      icon: Award,
-      title: 'Quality First',
-      description: 'Every expert is carefully vetted and verified to ensure the highest standards of service.'
+      icon: Shield,
+      title: 'Trust & Verification',
+      description: 'Only verified experts included for quality assurance.'
     },
     {
       icon: Zap,
       title: 'Innovation',
-      description: 'Leveraging technology to make expert discovery and connection seamless and efficient.'
+      description: 'Leveraging AI-powered matching to tailor expertise to business needs.'
+    },
+    {
+      icon: Globe,
+      title: 'Compliance',
+      description: 'Operating from Germany with GDPR and global regulatory adherence.'
+    },
+    {
+      icon: Heart,
+      title: 'Affordability',
+      description: 'Transparent subscription pricing without commissions.'
     }
   ];
 
   const milestones = [
-    { year: '2024', title: 'Founded', description: 'Thriv was founded with a mission to democratize access to expertise' },
-    { year: '2024', title: 'Platform Launch', description: 'Beta platform launched in 10 countries with 1,000+ experts' },
-    { year: '2025', title: 'Global Expansion', description: 'Expanding to 20+ countries with 10,000+ verified experts' },
-    { year: '2025', title: 'AI Integration', description: 'Introducing AI agents to complement human expertise' }
+    { year: 'July 2025', title: 'Founded', description: 'Thriv founded to bridge global business-expert gap' },
+    { year: 'September 2025', title: 'Platform Launch', description: 'Beta platform launched with initial expert network' },
+    { year: 'November 2025', title: 'Global Expansion', description: 'Growing to 20+ countries, 1000+ verified experts and businesses' },
+    { year: 'January 2026', title: 'AI Integration', description: 'Introducing AI matching and expanded expert categories' }
   ];
 
   return (
@@ -47,8 +47,9 @@ const AboutUs = () => {
               About Thriv
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-4xl mx-auto">
-              We're on a mission to democratize access to quality expertise, helping small businesses 
-              grow and compete on a global scale by connecting them with trusted, verified professionals.
+              Thriv is a curated expert platform serving small businesses and solopreneurs worldwide from Germany. 
+              Our platform connects verified, affordable, and specialized experts across multiple domains to help 
+              businesses grow faster, expand markets, and boost productivity.
             </p>
           </motion.div>
         </div>
@@ -68,7 +69,8 @@ const AboutUs = () => {
                 Our Mission
               </h2>
               <p className="text-xl text-slate-600 leading-relaxed mb-8">
-                Quality expertise made accessible: linking small businesses with trusted, curated expertise.
+                Our mission is to redefine access to expertise globally by combining trust, transparency, 
+                compliance, and affordability—enabling small businesses to thrive with curated, verified experts.
               </p>
               <p className="text-lg text-slate-600 leading-relaxed">
                 We believe that every small business deserves access to world-class expertise, 
@@ -89,8 +91,8 @@ const AboutUs = () => {
                 <Target className="w-16 h-16 mx-auto text-blue-200" />
                 <h3 className="text-2xl font-bold">Our Vision</h3>
                 <p className="text-blue-100 leading-relaxed">
-                  To become the world's most trusted platform for connecting small businesses 
-                  with quality expertise, enabling growth without geographical boundaries.
+                  To be the global standard for trusted, curated expertise—empowering small businesses 
+                  and solopreneurs to grow confidently and innovate beyond borders.
                 </p>
               </div>
             </motion.div>
@@ -182,10 +184,8 @@ const AboutUs = () => {
               Our Team
             </h2>
             <p className="text-xl text-blue-100 leading-relaxed max-w-4xl mx-auto">
-              Thriv is designed to help small businesses access expertise without borders. 
-              We understand the challenges small businesses face because we've been there. Our team is 
-              committed to building a platform that truly serves the needs of growing businesses and 
-              the experts who support them.
+              Our dedicated team blends entrepreneurial experience with technology expertise, committed to 
+              building a reliable platform that empowers businesses worldwide.
             </p>
           </motion.div>
         </div>
