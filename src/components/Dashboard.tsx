@@ -228,7 +228,7 @@ const ProfileTab = ({ profile }: { profile: any }) => (
       <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
         <p className="text-yellow-800">
           <strong>Note:</strong> Changes to profile details require approval from Thethriv team. 
-          Click "Connect to Thethriv\" for moderated updates.
+          Click "Connect to Thriv\" for moderated updates.
         </p>
       </div>
     </div>

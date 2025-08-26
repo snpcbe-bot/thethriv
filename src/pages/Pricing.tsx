@@ -252,7 +252,7 @@ const Pricing = () => {
                 Promotional Advertising
               </h2>
               <p className="text-xl text-slate-600 mb-4">
-                Limited slots available for maximum visibility
+                Join thousands of {activeTab === 'customers' ? 'businesses' : 'experts'} already using Thriv
               </p>
               <div className="inline-flex items-center px-4 py-2 bg-red-50 rounded-full">
                 <Globe className="w-4 h-4 text-red-600 mr-2" />

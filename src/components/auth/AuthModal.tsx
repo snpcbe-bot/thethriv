@@ -90,7 +90,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-bold text-gray-900">
-              {activeTab === 'signin' ? 'Welcome back' : 'Join Thethriv'}
+              {activeTab === 'signin' ? 'Welcome back' : 'Join Thriv'}
             </h2>
             <button
               onClick={onClose}

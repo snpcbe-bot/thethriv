@@ -91,7 +91,7 @@ const PartnerProgram = () => {
               <span className="text-sm font-medium text-blue-900">Partner Page</span>
             </div>
             <h1 className="text-6xl font-bold text-slate-900 mb-8">
-              Partner with Thethriv
+              Partner with Thriv
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
               Join our partner network and help small businesses in your community access 
@@ -234,7 +234,7 @@ const PartnerProgram = () => {
                 organization: "Downtown Business Chamber",
                 location: "Austin, TX",
                 result: "40% increase in member engagement",
-                quote: "Thethriv has become one of our most valuable member benefits. The quality of experts and ease of connection has exceeded our expectations."
+                quote: "Thriv has become one of our most valuable member benefits. The quality of experts and ease of connection has exceeded our expectations."
               },
               {
                 organization: "TechHub Co-working",
@@ -246,7 +246,7 @@ const PartnerProgram = () => {
                 organization: "Regional SMB Association",
                 location: "Melbourne, Australia",
                 result: "200+ successful expert connections",
-                quote: "The partnership with Thethriv has allowed us to offer world-class expertise to our regional members who previously had limited access."
+                quote: "The partnership with Thriv has allowed us to offer world-class expertise to our regional members who previously had limited access."
               }
             ].map((story, index) => (
               <motion.div
