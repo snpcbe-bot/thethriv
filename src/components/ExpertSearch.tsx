@@ -226,6 +226,7 @@ const ExpertSearch = () => {
                     Connect
                   </button>
                 </div>
+              </div>
             </motion.div>
           ))}
         </div>
