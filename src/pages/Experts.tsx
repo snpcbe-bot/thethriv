@@ -149,7 +149,7 @@ const Experts = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-bold text-gray-900 mb-6">
-              Why experts choose Thethriv
+              Why experts choose Thriv
             </h2>
             <p className="text-xl text-gray-600">
               Everything you need to grow your expert business

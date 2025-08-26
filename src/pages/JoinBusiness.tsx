@@ -116,7 +116,7 @@ const JoinBusiness = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-bold text-gray-900 mb-6">
-              Why businesses choose Thethriv
+              Why businesses choose Thriv
             </h2>
             <p className="text-xl text-gray-600">
               Everything you need to find and work with the right expertise
@@ -260,7 +260,7 @@ const JoinBusiness = () => {
               Ready to grow your business?
             </h2>
             <p className="text-xl text-green-100 mb-12 max-w-3xl mx-auto">
-              Join thousands of small businesses finding success with Thethriv
+              Join thousands of small businesses finding success with Thriv
             </p>
             <Link
               to="/pricing"

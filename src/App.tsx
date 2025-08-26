@@ -26,6 +26,7 @@ function App() {
           <Navigation />
           <Routes>
             <Route path="/" element={<Homepage />} />
+            <Route path="/business" element={<Customers />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/experts" element={<Experts />} />
             <Route path="/pricing" element={<Pricing />} />

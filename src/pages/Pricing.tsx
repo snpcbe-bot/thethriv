@@ -6,7 +6,9 @@ import PricingCard from '../components/PricingCard';
 const Pricing = () => {
   const [activeTab, setActiveTab] = useState('customers');
 
-  const customerPlans = [
+  const [activeTab, setActiveTab] = useState('business');
+
+  const businessPlans = [
     {
       name: 'Free Plan',
       price: 0,
@@ -178,34 +180,34 @@ const Pricing = () => {
     }
   ];
 
-  const currentPlans = activeTab === 'customers' ? customerPlans : expertPlans;
+  const currentPlans = activeTab === 'business' ? businessPlans : expertPlans;
 
   return (
     <div className="pt-32">
       {/* Header */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h1 className="text-6xl font-bold text-slate-900 mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 mb-6">
             Simple, transparent pricing
           </h1>
-          <p className="text-xl text-slate-600 mb-12 max-w-3xl mx-auto">
+          <p className="text-lg text-slate-600 mb-8 max-w-3xl mx-auto">
             Choose the plan that fits your needs. All plans include our core features.
           </p>
           
           {/* Tab Switcher */}
-          <div className="inline-flex items-center bg-slate-100 p-2 rounded-2xl">
+          <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl text-sm ml-auto mr-4 mb-8">
             <button
-              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
-                activeTab === 'customers'
+              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                activeTab === 'business'
                   ? 'bg-white text-blue-600 shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
-              onClick={() => setActiveTab('customers')}
+              onClick={() => setActiveTab('business')}
             >
-              Customers
+              Business
             </button>
             <button
-              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
+              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                 activeTab === 'experts'
                   ? 'bg-white text-purple-600 shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
@@ -219,7 +221,7 @@ const Pricing = () => {
       </section>
 
       {/* Pricing Cards */}
-      <section className="pb-24 bg-white">
+      <section className="pb-16 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-4 gap-8">
             {currentPlans.map((plan, index) => (
@@ -252,7 +254,7 @@ const Pricing = () => {
                 Promotional Advertising
               </h2>
               <p className="text-xl text-slate-600 mb-4">
-                Join thousands of {activeTab === 'customers' ? 'businesses' : 'experts'} already using Thriv
+                Join thousands of {activeTab === 'business' ? 'businesses' : 'experts'} already using Thriv
               </p>
               <div className="inline-flex items-center px-4 py-2 bg-red-50 rounded-full">
                 <Globe className="w-4 h-4 text-red-600 mr-2" />
@@ -378,7 +380,7 @@ const Pricing = () => {
               Ready to get started?
             </h2>
             <p className="text-xl text-blue-100 mb-8">
-              Join thousands of {activeTab === 'customers' ? 'businesses' : 'experts'} already using Thethriv
+              Join thousands of {activeTab === 'business' ? 'businesses' : 'experts'} already using Thriv
             </p>
             <button className="inline-flex items-center justify-center px-10 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl">
               Start Free Today

@@ -1,274 +1,392 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useAuth } from '../contexts/AuthContext';
-import AuthModal from './auth/AuthModal';
-import AnimatedGlobeLogo from './AnimatedGlobeLogo';
+import { Check, Star, Zap, Globe, Crown, Target } from 'lucide-react';
+import PricingCard from '../components/PricingCard';
 
-const Navigation = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [authModalTab, setAuthModalTab] = useState<'signin' | 'signup'>('signin');
-  const [authModalRole, setAuthModalRole] = useState<'business' | 'expert'>('business');
-  const location = useLocation();
-  const { user, signOut } = useAuth();
+const Pricing = () => {
+  const [activeTab, setActiveTab] = useState('customers');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'Business', href: '/customers' },
-    { name: 'Experts', href: '/experts' },
-    { name: 'Pricing', href: '/pricing' },
+  const businessPlans = [
+    {
+      name: 'Free Plan',
+      price: 0,
+      period: 'forever',
+      description: 'Perfect for getting started',
+      features: [
+        '5 expert profiles per month',
+        'Access to resources library',
+        'Basic search filters',
+        'Community support'
+      ],
+      highlighted: false,
+      ctaText: 'Get Started Free',
+      badge: null,
+      popular: false
+    },
+    {
+      name: 'Weekly Plan',
+      price: 4,
+      period: 'per week',
+      description: 'For active searchers',
+      features: [
+        'Full access to all experts',
+        '20 expert profiles',
+        '20 direct connections',
+        'Advanced search filters',
+        'Basic analytics',
+        'Email support'
+      ],
+      highlighted: false,
+      ctaText: 'Start Weekly',
+      badge: null,
+      popular: false
+    },
+    {
+      name: 'Monthly Plan',
+      price: 10,
+      originalPrice: 10,
+      offerPrice: 7,
+      period: 'per month',
+      description: 'Most popular choice',
+      features: [
+        'Full access to all experts',
+        '20 expert profiles',
+        '20 direct connections',
+        'Advanced analytics',
+        'Expert recommendations'
+      ],
+      highlighted: true,
+      ctaText: 'Start Monthly',
+      badge: 'Most Popular',
+      popular: true
+    },
+    {
+      name: 'Yearly Plan',
+      price: 90,
+      originalPrice: 90,
+      offerPrice: 63,
+      period: 'per year',
+      description: 'Best value for serious businesses',
+      features: [
+        'Unlimited expert profiles',
+        'Unlimited connections',
+        'Advanced analytics & insights',
+        'Annual business consultation',
+        'Premium support',
+        'Early access to new features'
+      ],
+      highlighted: false,
+      ctaText: 'Go Yearly',
+      badge: 'Best Value',
+      popular: false
+    }
   ];
 
-  const resourceLinks = [
-    { name: 'About Us', href: '/about', description: 'Our mission and story' },
-    { name: 'Blog', href: '/blog', description: 'SEO & growth tips' },
-    { name: 'Resources Library', href: '/resources', description: 'Guides, templates, eBooks' },
-    { name: 'Partner Page', href: '/partners', description: 'For chambers & co-working hubs' },
+  const expertPlans = [
+    {
+      name: 'Free Plan',
+      price: 0,
+      period: 'forever',
+      description: 'Start building your presence',
+      features: [
+        'Basic listing',
+        'Verified badge',
+        'Profile creation',
+        'Basic messaging',
+        'Community access'
+      ],
+      highlighted: false,
+      ctaText: 'List for Free',
+      badge: null,
+      popular: false
+    },
+    {
+      name: 'Monthly Plan',
+      price: 10,
+      originalPrice: 10,
+      offerPrice: 7,
+      period: 'per month',
+      description: 'Enhanced visibility',
+      features: [
+        'Verified premium listing',
+        'Premium placement',
+        'Profile analytics',
+        'Direct messaging',
+        'Priority support',
+        'Featured badge'
+      ],
+      highlighted: true,
+      ctaText: 'Go Premium',
+      badge: 'Most Popular',
+      popular: true
+    },
+    {
+      name: 'Yearly Plan',
+      price: 90,
+      originalPrice: 90,
+      offerPrice: 63,
+      period: 'per year',
+      description: 'Maximum exposure',
+      features: [
+        'Premium listing benefits',
+        'Advanced analytics',
+        'Featured in newsletters',
+        'Resource guide mentions',
+        'Priority placement',
+        'Dedicated account manager'
+      ],
+      highlighted: false,
+      ctaText: 'Go Yearly',
+      badge: 'Best Value',
+      popular: false
+    }
   ];
+
+  const promoPlans = [
+    {
+      name: 'Global Promo Ad',
+      price: 80,
+      period: 'per month',
+      yearlyPrice: 500,
+      description: 'Maximum visibility worldwide',
+      features: [
+        'Featured across all regions',
+        'Homepage placement',
+        'Newsletter mentions',
+        'Social media features',
+        'Priority in all searches'
+      ],
+      ctaText: 'Get Global Exposure',
+      icon: Globe
+    },
+    {
+      name: 'Regional Promo Ad',
+      price: 50,
+      period: 'per month',
+      yearlyPrice: 300,
+      description: 'Targeted regional focus',
+      features: [
+        'Featured in selected regions',
+        'Regional homepage placement',
+        'Local newsletter mentions',
+        'Geographic priority',
+        'Regional social features'
+      ],
+      ctaText: 'Choose Regions',
+      icon: Target
+    }
+  ];
+
+  const currentPlans = activeTab === 'customers' ? customerPlans : expertPlans;
 
   return (
-    <>
-      {/* Announcement Banner */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-blue-600 text-white py-3 px-6 text-center font-semibold shadow-lg">
-        🎉 Free Listings for All Users — Join Now! Free access until September 2025, no credit card required.
-      </div>
-
-      {/* Main Navigation */}
-      <nav className={`fixed top-12 left-0 right-0 z-40 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-100' 
-          : 'bg-transparent'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3">
-              <AnimatedGlobeLogo size="md" />
-              <span className="text-2xl font-bold text-gray-900">Thriv</span>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-10">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className={`font-semibold text-lg transition-colors hover:text-blue-600 ${
-                    location.pathname === link.href ? 'text-blue-600' : 'text-gray-700'
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              
-              {/* Resources Dropdown */}
-              <div className="relative">
-                <button
-                  className={`flex items-center space-x-2 font-semibold text-lg transition-colors ${
-                    ['/about', '/blog', '/resources', '/partners'].includes(location.pathname) 
-                      ? 'text-blue-600' 
-                      : 'text-gray-700 hover:text-blue-600'
-                  }`}
-                  onMouseEnter={() => setIsResourcesOpen(true)}
-                >
-                  <span>Resources</span>
-                  <ChevronDown className="w-5 h-5" />
-                </button>
-                
-                {isResourcesOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-full left-0 mt-4 w-80 bg-white rounded-2xl shadow-2xl border py-4 z-50"
-                    onMouseEnter={() => setIsResourcesOpen(true)}
-                    onMouseLeave={() => setIsResourcesOpen(false)}
-                  >
-                    {resourceLinks.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className={`block px-6 py-4 hover:bg-gray-50 transition-colors ${
-                          location.pathname === item.href ? 'bg-blue-50 text-blue-600' : ''
-                        }`}
-                        onClick={() => setIsResourcesOpen(false)}
-                      >
-                        <div className="font-semibold text-gray-900 mb-1">{item.name}</div>
-                        <div className="text-sm text-gray-500">{item.description}</div>
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
-            {user ? (
-              <div className="hidden lg:flex items-center space-x-4">
-                <Link
-                  to="/search"
-                  className="px-6 py-3 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
-                >
-                  Find Experts
-                </Link>
-                <div className="relative">
-                  <button
-                    className="flex items-center space-x-2 px-4 py-2 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
-                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  >
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm font-bold">
-                        {user.user_metadata?.full_name?.charAt(0) || 'U'}
-                      </span>
-                    </div>
-                    <ChevronDown className="w-4 h-4" />
-                  </button>
-                  
-                  {isUserMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border py-2 z-50"
-                    >
-                      <Link
-                        to="/dashboard"
-                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      >
-                        <User className="w-4 h-4" />
-                        <span>Dashboard</span>
-                      </Link>
-                      <button
-                        onClick={() => {
-                          signOut();
-                          setIsUserMenuOpen(false);
-                        }}
-                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors w-full text-left"
-                      >
-                        <LogOut className="w-4 h-4" />
-                        <span>Sign Out</span>
-                      </button>
-                    </motion.div>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="hidden lg:flex items-center space-x-4">
-                <button
-                  onClick={() => {
-                    setAuthModalTab('signin');
-                    setAuthModalRole('business');
-                    setShowAuthModal(true);
-                  }}
-                  className="flex items-center space-x-2 px-4 py-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
-                >
-                  <User className="w-4 h-4" />
-                  <span>Sign In</span>
-                </button>
-              </div>
-            )}
-
-            {/* Mobile Menu Button */}
+    <div className="pt-32">
+      {/* Header */}
+      <section className="py-24 bg-white">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+          <h1 className="text-6xl font-bold text-slate-900 mb-8">
+            Simple, transparent pricing
+          </h1>
+          <p className="text-xl text-slate-600 mb-12 max-w-3xl mx-auto">
+            Choose the plan that fits your needs. All plans include our core features.
+          </p>
+          
+          {/* Tab Switcher */}
+          <div className="inline-flex items-center bg-slate-100 p-2 rounded-2xl">
             <button
-              className="lg:hidden p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                activeTab === 'customers'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+              onClick={() => setActiveTab('customers')}
             >
-              {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+              Customers
+            </button>
+            <button
+              className={`px-8 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                activeTab === 'experts'
+                  ? 'bg-white text-purple-600 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+              onClick={() => setActiveTab('experts')}
+            >
+              Experts
             </button>
           </div>
         </div>
+      </section>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            className="lg:hidden bg-white border-t border-gray-100"
-          >
-            <div className="px-6 py-6 space-y-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="block font-semibold text-lg text-gray-700 hover:text-blue-600 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div className="space-y-4">
-                <span className="block font-semibold text-lg text-gray-700">Resources</span>
-                {resourceLinks.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="block pl-4 text-gray-600 hover:text-blue-600 transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-              <div className="pt-6 space-y-4">
-                {user ? (
-                  <>
-                    <Link
-                      to="/dashboard"
-                      className="block w-full px-6 py-3 text-center text-blue-600 font-semibold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
-                    <button
-                      onClick={() => {
-                        signOut();
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full px-6 py-3 text-center bg-gray-600 text-white font-semibold rounded-xl hover:bg-gray-700 transition-colors"
-                    >
-                      Sign Out
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => {
-                        setAuthModalTab('signin');
-                        setAuthModalRole('business');
-                        setShowAuthModal(true);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
-                    >
-                      Sign In
-                    </button>
-                  </>
-                )}
+      {/* Pricing Cards */}
+      <section className="pb-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-4 gap-8">
+            {currentPlans.map((plan, index) => (
+              <PricingCard
+                key={plan.name}
+                name={plan.name}
+                price={plan.price}
+                originalPrice={plan.originalPrice}
+                offerPrice={plan.offerPrice}
+                period={plan.period}
+                description={plan.description}
+                features={plan.features}
+                highlighted={plan.highlighted}
+                ctaText={plan.ctaText}
+                badge={plan.badge}
+                popular={plan.popular}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Promo Ads Section - Only for Experts */}
+      {activeTab === 'experts' && (
+        <section className="py-24 bg-slate-50">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-slate-900 mb-6">
+                Promotional Advertising
+              </h2>
+              <p className="text-xl text-slate-600 mb-4">
+                Join thousands of {activeTab === 'customers' ? 'businesses' : 'experts'} already using Thriv
+              </p>
+              <div className="inline-flex items-center px-4 py-2 bg-red-50 rounded-full">
+                <Globe className="w-4 h-4 text-red-600 mr-2" />
+                <span className="text-sm font-semibold text-red-900">Only 2 slots available per region</span>
               </div>
             </div>
+            
+            <div className="grid lg:grid-cols-2 gap-8">
+              {promoPlans.map((plan, index) => (
+                <motion.div
+                  key={plan.name}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="relative bg-gradient-to-br from-yellow-50 to-orange-50 rounded-3xl border-2 border-yellow-200 p-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-full text-sm font-semibold">
+                      <plan.icon className="w-4 h-4 mr-1" />
+                      Premium Ad
+                    </div>
+                  </div>
+                  
+                  <div className="text-center mb-8 pt-4">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">{plan.name}</h3>
+                    <div className="mb-4">
+                      <div className="text-5xl font-bold text-slate-900 mb-2">
+                        ${plan.price}
+                      </div>
+                      <div className="text-slate-500">/{plan.period}</div>
+                      <div className="text-sm text-slate-600 mt-2">
+                        or ${plan.yearlyPrice}/year (save ${(plan.price * 12) - plan.yearlyPrice})
+                      </div>
+                    </div>
+                    <p className="text-slate-600">{plan.description}</p>
+                  </div>
+                  
+                  <ul className="space-y-4 mb-8">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start space-x-3">
+                        <Star className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-1" />
+                        <span className="text-slate-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <button className="w-full py-4 px-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold rounded-xl hover:from-yellow-600 hover:to-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl">
+                    {plan.ctaText}
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">
+              Frequently asked questions
+            </h2>
+            <p className="text-xl text-slate-600">
+              Everything you need to know about our pricing
+            </p>
+          </div>
+          
+          <div className="space-y-8">
+            {[
+              {
+                q: "What happens after September 2025?",
+                a: "All free plans will transition to paid plans. You'll receive 30 days advance notice and can choose to upgrade or cancel."
+              },
+              {
+                q: "Can I cancel anytime?",
+                a: "Yes, all plans can be cancelled anytime. No long-term commitments or cancellation fees."
+              },
+              {
+                q: "Do you offer refunds?",
+                a: "Yes, we offer full refunds within 30 days of purchase, no questions asked."
+              },
+              {
+                q: "Is there a setup fee?",
+                a: "No setup fees, ever. You only pay for your chosen plan."
+              },
+              {
+                q: "What payment methods do you accept?",
+                a: "We accept all major credit cards, PayPal, and bank transfers for annual plans."
+              },
+              {
+                q: "Do you offer discounts for non-profits?",
+                a: "Yes, we offer 50% discounts for registered non-profit organizations. Contact us for details."
+              }
+            ].map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-slate-50 rounded-3xl p-8"
+              >
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{faq.q}</h3>
+                <p className="text-slate-600 leading-relaxed">{faq.a}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-24 bg-gradient-to-r from-blue-600 to-indigo-600">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Ready to get started?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Join thousands of {activeTab === 'customers' ? 'businesses' : 'experts'} already using Thethriv
+            </p>
+            <button className="inline-flex items-center justify-center px-10 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl">
+              Start Free Today
+            </button>
           </motion.div>
-        )}
-        
-        <AuthModal
-          isOpen={showAuthModal}
-          onClose={() => setShowAuthModal(false)}
-          defaultTab={authModalTab}
-          defaultRole={authModalRole}
-        />
-      </nav>
-    </>
+        </div>
+      </section>
+    </div>
   );
 };
 
-export default Navigation;
+export default Pricing;

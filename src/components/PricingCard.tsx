@@ -40,7 +40,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         highlighted
           ? 'border-2 border-blue-500 shadow-2xl scale-105 z-10'
           : 'border border-slate-200 shadow-lg hover:shadow-2xl hover:-translate-y-2'
-      }`}
+      } flex flex-col h-full`}
     >
       {badge && (
         <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -99,7 +99,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
           highlighted
             ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl'
             : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
-        }`}
+        } mt-auto`}
       >
         {ctaText}
       </button>

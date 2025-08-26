@@ -70,7 +70,7 @@ const Customers = () => {
               className="space-y-8"
             >
               <div className="inline-flex items-center px-4 py-2 bg-green-50 rounded-full">
-                <Building className="w-4 h-4 text-green-600 mr-2" />
+                <Users className="w-4 h-4 text-green-600 mr-2" />
                 <span className="text-sm font-medium text-green-900">For Business</span>
               </div>
               
@@ -251,7 +251,7 @@ const Customers = () => {
               Ready to accelerate your growth?
             </h2>
             <p className="text-xl text-green-100 mb-12 max-w-3xl mx-auto">
-              Join thousands of small businesses finding success with Thethriv
+              Join thousands of small businesses finding success with Thriv
             </p>
             <Link
               to="/pricing"
