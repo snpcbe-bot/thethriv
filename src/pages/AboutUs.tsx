@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Globe, Target, Heart, Award, Zap } from 'lucide-react';
+import { Users, Globe, Target, Heart, Award, Zap, Shield } from 'lucide-react';
 
 const AboutUs = () => {
   const values = [
