@@ -53,7 +53,6 @@ const Pricing = () => {
         '20 expert profiles',
         '20 direct connections',
         'Advanced analytics',
-        'Priority support',
         'Expert recommendations'
       ],
       highlighted: true,
@@ -183,45 +182,47 @@ const Pricing = () => {
   return (
     <div className="pt-32">
       {/* Header */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">
-          <h1 className="text-3xl font-bold text-slate-900 mb-6">
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-lg text-slate-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg text-slate-600 mb-6 max-w-3xl mx-auto">
             Choose the plan that fits your needs. All plans include our core features.
           </p>
           
-          {/* Tab Switcher */}
-          <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl text-sm ml-auto mr-4 mb-8">
-            <button
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeTab === 'business'
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-              onClick={() => setActiveTab('business')}
-            >
-              Business
-            </button>
-            <button
-              className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                activeTab === 'experts'
-                  ? 'bg-white text-purple-600 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-              onClick={() => setActiveTab('experts')}
-            >
-              Experts
-            </button>
+          {/* Tab Switcher - Smaller and positioned top-right */}
+          <div className="flex justify-end mb-8">
+            <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl text-sm">
+              <button
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeTab === 'business'
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                onClick={() => setActiveTab('business')}
+              >
+                Business
+              </button>
+              <button
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  activeTab === 'experts'
+                    ? 'bg-white text-purple-600 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                onClick={() => setActiveTab('experts')}
+              >
+                Experts
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Pricing Cards */}
-      <section className="pb-16 bg-white">
+      <section className="pb-12 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-4 gap-8">
+          <div className="grid lg:grid-cols-4 gap-6">
             {currentPlans.map((plan, index) => (
               <PricingCard
                 key={plan.name}
@@ -245,14 +246,14 @@ const Pricing = () => {
 
       {/* Promo Ads Section - Only for Experts */}
       {activeTab === 'experts' && (
-        <section className="py-24 bg-slate-50">
+        <section className="py-16 bg-slate-50">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-slate-900 mb-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">
                 Promotional Advertising
               </h2>
-              <p className="text-xl text-slate-600 mb-4">
-                Join thousands of {activeTab === 'business' ? 'businesses' : 'experts'} already using Thriv
+              <p className="text-lg text-slate-600 mb-4">
+                Boost your visibility with premium advertising
               </p>
               <div className="inline-flex items-center px-4 py-2 bg-red-50 rounded-full">
                 <Globe className="w-4 h-4 text-red-600 mr-2" />
@@ -311,18 +312,18 @@ const Pricing = () => {
       )}
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">
               Frequently asked questions
             </h2>
-            <p className="text-xl text-slate-600">
+            <p className="text-lg text-slate-600">
               Everything you need to know about our pricing
             </p>
           </div>
           
-          <div className="space-y-8">
+          <div className="space-y-6">
             {[
               {
                 q: "What happens after September 2025?",
@@ -355,9 +356,9 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-slate-50 rounded-3xl p-8"
+                className="bg-slate-50 rounded-2xl p-6"
               >
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{faq.q}</h3>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">{faq.q}</h3>
                 <p className="text-slate-600 leading-relaxed">{faq.a}</p>
               </motion.div>
             ))}
@@ -366,7 +367,7 @@ const Pricing = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-gradient-to-r from-blue-600 to-indigo-600">
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-indigo-600">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -374,13 +375,13 @@ const Pricing = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-bold text-white mb-6">
+            <h2 className="text-3xl font-bold text-white mb-4">
               Ready to get started?
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
+            <p className="text-lg text-blue-100 mb-6">
               Join thousands of {activeTab === 'business' ? 'businesses' : 'experts'} already using Thriv
             </p>
-            <button className="inline-flex items-center justify-center px-10 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl">
+            <button className="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl">
               Start Free Today
             </button>
           </motion.div>
