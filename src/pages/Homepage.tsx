@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Globe, DollarSign, CheckCircle, Users, Target, Zap, Star, TrendingUp } from 'lucide-react';
-import GlobalMap from '../components/GlobalMap';
 import HeroVideo from '../components/HeroVideo';
 import ValueCard from '../components/ValueCard';
 import StatsCard from '../components/StatsCard';
