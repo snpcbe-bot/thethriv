@@ -278,7 +278,7 @@ const JoinExpert = () => {
                 
                 <div className="bg-white/10 backdrop-blur rounded-2xl p-6">
                   <blockquote className="text-purple-50 italic text-lg mb-3">
-                    "Thethriv connected me with 50+ new clients in my first 6 months. Best decision for my consulting business."
+                    "Thriv connected me with 50+ new clients in my first 6 months. Best decision for my consulting business."
                   </blockquote>
                   <div className="text-purple-200">- Marcus L., SEO Expert</div>
                 </div>

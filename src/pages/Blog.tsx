@@ -90,7 +90,7 @@ const Blog = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-6xl font-bold text-slate-900 mb-8">
-              Thethriv Blog
+              Thriv Blog
             </h1>
             <p className="text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
               SEO tips, growth strategies, and expert insights to help your small business thrive in the digital age.

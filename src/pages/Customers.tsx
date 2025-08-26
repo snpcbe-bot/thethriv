@@ -81,7 +81,7 @@ const Customers = () => {
               
               <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
                 Connect with verified SEO experts, influencers, AI agents, and more. 
-                Scale your business with confidence.
+                Join thousands of small businesses finding success with Thriv
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -228,7 +228,7 @@ const Customers = () => {
                 
                 <div className="bg-white/10 backdrop-blur rounded-2xl p-6">
                   <blockquote className="text-green-50 italic text-lg mb-3">
-                    "Thethriv helped us find the perfect SEO expert who increased our traffic by 300% in just 3 months."
+                    "Thriv helped us find the perfect SEO expert who increased our traffic by 300% in just 3 months."
                   </blockquote>
                   <div className="text-green-200">- Sarah K., E-commerce Business</div>
                 </div>
