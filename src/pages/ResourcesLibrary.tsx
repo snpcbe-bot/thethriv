@@ -275,7 +275,7 @@ const ResourcesLibrary = () => {
               Need More Help?
             </h2>
             <p className="text-xl text-blue-100 mb-8">
-              Connect with our verified experts for personalized guidance
+              Connect with our verified experts for personalized guidance on Thriv
             </p>
             <button className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
               Find an Expert

@@ -85,7 +85,7 @@ const Experts = () => {
               
               <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
                 Join our curated network of trusted experts and connect with small businesses 
-                looking for your expertise.
+                Join our network of trusted experts on Thriv and start connecting with businesses today
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
