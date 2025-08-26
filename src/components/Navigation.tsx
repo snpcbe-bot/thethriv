@@ -177,7 +177,7 @@ const Pricing = () => {
     }
   ];
 
-  const currentPlans = activeTab === 'customers' ? customerPlans : expertPlans;
+  const currentPlans = activeTab === 'business' ? businessPlans : expertPlans;
 
   return (
     <div className="pt-32">
