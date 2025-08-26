@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from './useAuth';
+import { useAuth } from '../contexts/AuthContext';
 import { userService } from '../services/userService';
 import { businessService } from '../services/businessService';
 import { expertService } from '../services/expertService';

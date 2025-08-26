@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from './useAuth';
+import { useAuth } from '../contexts/AuthContext';
 import { messagingService } from '../services/messagingService';
 import { supabase } from '../lib/supabase';
 import type { Conversation, Message } from '../types';

@@ -13,7 +13,7 @@ import {
   Edit,
   Megaphone
 } from 'lucide-react'
-import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '../contexts/AuthContext'
 import { useUserProfile } from '../hooks/useUserProfile'
 import MessageCenter from './messaging/MessageCenter'
 
