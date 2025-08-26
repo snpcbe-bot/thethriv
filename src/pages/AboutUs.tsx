@@ -179,10 +179,10 @@ const AboutUs = () => {
           >
             <Users className="w-16 h-16 mx-auto text-blue-300 mb-8" />
             <h2 className="text-5xl font-bold mb-8">
-              Founder-Led Platform
+              Our Team
             </h2>
             <p className="text-xl text-blue-100 leading-relaxed max-w-4xl mx-auto">
-              Thethriv is a founder-led platform designed to help SMBs access expertise without borders. 
+              Thethriv is designed to help small businesses access expertise without borders. 
               We understand the challenges small businesses face because we've been there. Our team is 
               committed to building a platform that truly serves the needs of growing businesses and 
               the experts who support them.

@@ -9,6 +9,8 @@ import AboutUs from './pages/AboutUs';
 import Blog from './pages/Blog';
 import ResourcesLibrary from './pages/ResourcesLibrary';
 import PartnerProgram from './pages/PartnerProgram';
+import JoinBusiness from './pages/JoinBusiness';
+import JoinExpert from './pages/JoinExpert';
 import CookieConsent from './components/CookieConsent';
 import Footer from './components/Footer';
 
@@ -26,6 +28,8 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/resources" element={<ResourcesLibrary />} />
           <Route path="/partners" element={<PartnerProgram />} />
+          <Route path="/join-business" element={<JoinBusiness />} />
+          <Route path="/join-expert" element={<JoinExpert />} />
         </Routes>
         <Footer />
         <CookieConsent />

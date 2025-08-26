@@ -10,7 +10,7 @@ const Pricing = () => {
     {
       name: 'Free Plan',
       price: 0,
-      period: 'Until Sept 2025',
+      period: 'forever',
       description: 'Perfect for getting started',
       features: [
         '5 expert profiles per month',
@@ -87,7 +87,7 @@ const Pricing = () => {
     {
       name: 'Free Plan',
       price: 0,
-      period: 'Until Sept 2025',
+      period: 'forever',
       description: 'Start building your presence',
       features: [
         'Basic listing',
@@ -182,15 +182,6 @@ const Pricing = () => {
 
   return (
     <div className="pt-32">
-      {/* Banner */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="font-semibold">
-            🎉 {activeTab === 'customers' ? 'Free customer access' : 'Free expert listings'} until September 2025
-          </div>
-        </div>
-      </div>
-
       {/* Header */}
       <section className="py-24 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center">

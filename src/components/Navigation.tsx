@@ -25,9 +25,10 @@ const Navigation = () => {
 
   const resourceLinks = [
     { name: 'About Us', href: '/about', description: 'Our mission and story' },
+    { name: 'About Us', href: '/about', description: 'Our mission and story' },
     { name: 'Blog', href: '/blog', description: 'SEO & growth tips' },
     { name: 'Resources Library', href: '/resources', description: 'Guides, templates, eBooks' },
-    { name: 'Partner Program', href: '/partners', description: 'For chambers & co-working hubs' },
+    { name: 'Partner Page', href: '/partners', description: 'For chambers & co-working hubs' },
   ];
 
   return (
@@ -104,16 +105,16 @@ const Navigation = () => {
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-4">
               <Link
-                to="/experts"
+                to="/join-expert"
                 className="px-6 py-3 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
               >
                 Join as Expert
               </Link>
               <Link
-                to="/customers"
+                to="/join-business"
                 className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                Find Experts
+                Join as Business
               </Link>
             </div>
 
@@ -159,16 +160,16 @@ const Navigation = () => {
               </div>
               <div className="pt-6 space-y-4">
                 <Link
-                  to="/experts"
+                  to="/join-expert"
                   className="block w-full px-6 py-3 text-center text-blue-600 font-semibold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition-colors"
                 >
                   Join as Expert
                 </Link>
                 <Link
-                  to="/customers"
+                  to="/join-business"
                   className="block w-full px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
                 >
-                  Find Experts
+                  Join as Business
                 </Link>
               </div>
             </div>

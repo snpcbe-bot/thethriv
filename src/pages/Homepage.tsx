@@ -73,14 +73,14 @@ const Homepage = () => {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/customers"
+                  to="/join-business"
                   className="group inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
-                  Find Experts
+                  Join as Business
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
-                  to="/experts"
+                  to="/join-expert"
                   className="inline-flex items-center justify-center px-10 py-4 bg-white text-blue-600 font-semibold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition-all duration-200 shadow-sm hover:shadow-lg"
                 >
                   Join as Expert
@@ -218,14 +218,14 @@ const Homepage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
-                to="/customers"
+                to="/join-business"
                 className="group inline-flex items-center justify-center px-10 py-4 text-lg font-semibold bg-white text-blue-600 rounded-xl hover:bg-blue-50 transition-all duration-200 hover:scale-105 shadow-lg"
               >
                 Get Started Free
                 <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                to="/experts"
+                to="/join-expert"
                 className="inline-flex items-center justify-center px-10 py-4 text-lg font-semibold text-white border-2 border-white/30 rounded-xl hover:bg-white/10 hover:border-white transition-all duration-200"
               >
                 Join as Expert
