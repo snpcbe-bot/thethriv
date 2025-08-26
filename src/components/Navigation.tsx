@@ -26,7 +26,7 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Customers', href: '/customers' },
+    { name: 'Business', href: '/customers' },
     { name: 'Experts', href: '/experts' },
     { name: 'Pricing', href: '/pricing' },
   ];
@@ -167,23 +167,14 @@ const Navigation = () => {
               <div className="hidden lg:flex items-center space-x-4">
                 <button
                   onClick={() => {
-                    setAuthModalTab('signup');
-                    setAuthModalRole('expert');
-                    setShowAuthModal(true);
-                  }}
-                  className="px-6 py-3 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
-                >
-                  Join as Expert
-                </button>
-                <button
-                  onClick={() => {
-                    setAuthModalTab('signup');
+                    setAuthModalTab('signin');
                     setAuthModalRole('business');
                     setShowAuthModal(true);
                   }}
-                  className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="flex items-center space-x-2 px-4 py-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
                 >
-                  Join as Business
+                  <User className="w-4 h-4" />
+                  <span>Sign In</span>
                 </button>
               </div>
             )}
@@ -253,25 +244,14 @@ const Navigation = () => {
                   <>
                     <button
                       onClick={() => {
-                        setAuthModalTab('signup');
-                        setAuthModalRole('expert');
-                        setShowAuthModal(true);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full px-6 py-3 text-center text-blue-600 font-semibold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition-colors"
-                    >
-                      Join as Expert
-                    </button>
-                    <button
-                      onClick={() => {
-                        setAuthModalTab('signup');
+                        setAuthModalTab('signin');
                         setAuthModalRole('business');
                         setShowAuthModal(true);
                         setIsMobileMenuOpen(false);
                       }}
                       className="block w-full px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
                     >
-                      Join as Business
+                      Sign In
                     </button>
                   </>
                 )}

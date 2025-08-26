@@ -70,8 +70,8 @@ const Customers = () => {
               className="space-y-8"
             >
               <div className="inline-flex items-center px-4 py-2 bg-green-50 rounded-full">
-                <Users className="w-4 h-4 text-green-600 mr-2" />
-                <span className="text-sm font-medium text-green-900">For Small Businesses</span>
+                <Building className="w-4 h-4 text-green-600 mr-2" />
+                <span className="text-sm font-medium text-green-900">For Business</span>
               </div>
               
               <h1 className="text-6xl lg:text-7xl font-bold text-gray-900 leading-none tracking-tight">
@@ -107,7 +107,7 @@ const Customers = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-bold text-gray-900 mb-6">
-              Why customers choose Thethriv
+              Why businesses choose Thriv
             </h2>
             <p className="text-xl text-gray-600">
               Everything you need to find and connect with the right expertise
