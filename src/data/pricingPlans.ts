@@ -1,3 +1,5 @@
+import { Globe, Target } from 'lucide-react';
+
 export interface Plan {
   name: string;
   price: number;
@@ -171,7 +173,7 @@ export const promoPlans: PromoAd[] = [
       'Priority in all searches'
     ],
     ctaText: 'Get Global Exposure',
-    icon: require('lucide-react').Globe
+    icon: Globe
   },
   {
     name: 'Regional Promo Ad',
@@ -187,6 +189,6 @@ export const promoPlans: PromoAd[] = [
       'Regional social features'
     ],
     ctaText: 'Choose Regions',
-    icon: require('lucide-react').Target
+    icon: Target
   }
 ];
