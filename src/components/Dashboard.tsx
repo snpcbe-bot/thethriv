@@ -37,8 +37,8 @@ const Dashboard = () => {
     ...(isExpert ? [{ id: 'services', name: 'Services', icon: Star }] : []),
     { id: 'import', name: 'Import Data', icon: Plus },
     { id: 'promote', name: 'Promote', icon: Megaphone },
-    { id: 'settings', name: 'Settings', icon: Settings }
-    { id: 'import', name: 'Import Data', icon: Upload },
+    { id: 'settings', name: 'Settings', icon: Settings },
+    { id: 'import', name: 'Import Data', icon: Upload }
   ]
 
   if (profileLoading) {
