@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X, User, LogOut } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
+import AuthModal from './auth/AuthModal';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState<'signin' | 'signup'>('signin');
+  const [authModalRole, setAuthModalRole] = useState<'business' | 'expert'>('business');
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -108,20 +115,79 @@ const Navigation = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="hidden lg:flex items-center space-x-4">
-              <Link
-                to="/join-expert"
-                className="px-6 py-3 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
-              >
-                Join as Expert
-              </Link>
-              <Link
-                to="/join-business"
-                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
-              >
-                Join as Business
-              </Link>
-            </div>
+            {user ? (
+              <div className="hidden lg:flex items-center space-x-4">
+                <Link
+                  to="/search"
+                  className="px-6 py-3 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                >
+                  Find Experts
+                </Link>
+                <div className="relative">
+                  <button
+                    className="flex items-center space-x-2 px-4 py-2 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  >
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-sm font-bold">
+                        {user.user_metadata?.full_name?.charAt(0) || 'U'}
+                      </span>
+                    </div>
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
+                  
+                  {isUserMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border py-2 z-50"
+                    >
+                      <Link
+                        to="/dashboard"
+                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <User className="w-4 h-4" />
+                        <span>Dashboard</span>
+                      </Link>
+                      <button
+                        onClick={() => {
+                          signOut();
+                          setIsUserMenuOpen(false);
+                        }}
+                        className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-colors w-full text-left"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Sign Out</span>
+                      </button>
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="hidden lg:flex items-center space-x-4">
+                <button
+                  onClick={() => {
+                    setAuthModalTab('signup');
+                    setAuthModalRole('expert');
+                    setShowAuthModal(true);
+                  }}
+                  className="px-6 py-3 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                >
+                  Join as Expert
+                </button>
+                <button
+                  onClick={() => {
+                    setAuthModalTab('signup');
+                    setAuthModalRole('business');
+                    setShowAuthModal(true);
+                  }}
+                  className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                >
+                  Join as Business
+                </button>
+              </div>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -165,22 +231,62 @@ const Navigation = () => {
                 ))}
               </div>
               <div className="pt-6 space-y-4">
-                <Link
-                  to="/join-expert"
-                  className="block w-full px-6 py-3 text-center text-blue-600 font-semibold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition-colors"
-                >
-                  Join as Expert
-                </Link>
-                <Link
-                  to="/join-business"
-                  className="block w-full px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
-                >
-                  Join as Business
-                </Link>
+                {user ? (
+                  <>
+                    <Link
+                      to="/dashboard"
+                      className="block w-full px-6 py-3 text-center text-blue-600 font-semibold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition-colors"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => {
+                        signOut();
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="block w-full px-6 py-3 text-center bg-gray-600 text-white font-semibold rounded-xl hover:bg-gray-700 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        setAuthModalTab('signup');
+                        setAuthModalRole('expert');
+                        setShowAuthModal(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="block w-full px-6 py-3 text-center text-blue-600 font-semibold border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition-colors"
+                    >
+                      Join as Expert
+                    </button>
+                    <button
+                      onClick={() => {
+                        setAuthModalTab('signup');
+                        setAuthModalRole('business');
+                        setShowAuthModal(true);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="block w-full px-6 py-3 text-center bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+                    >
+                      Join as Business
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
         )}
+        
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+          defaultTab={authModalTab}
+          defaultRole={authModalRole}
+        />
       </nav>
     </>
   );

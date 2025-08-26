@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import Navigation from './components/Navigation';
 import Homepage from './pages/Homepage';
 import Customers from './pages/Customers';
@@ -13,28 +14,42 @@ import JoinBusiness from './pages/JoinBusiness';
 import JoinExpert from './pages/JoinExpert';
 import CookieConsent from './components/CookieConsent';
 import Footer from './components/Footer';
+import Dashboard from './components/Dashboard';
+import ExpertSearch from './components/ExpertSearch';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-white">
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/experts" element={<Experts />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/resources" element={<ResourcesLibrary />} />
-          <Route path="/partners" element={<PartnerProgram />} />
-          <Route path="/join-business" element={<JoinBusiness />} />
-          <Route path="/join-expert" element={<JoinExpert />} />
-        </Routes>
-        <Footer />
-        <CookieConsent />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen bg-white">
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/experts" element={<Experts />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/resources" element={<ResourcesLibrary />} />
+            <Route path="/partners" element={<PartnerProgram />} />
+            <Route path="/join-business" element={<JoinBusiness />} />
+            <Route path="/join-expert" element={<JoinExpert />} />
+            <Route path="/search" element={<ExpertSearch />} />
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+          <Footer />
+          <CookieConsent />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
