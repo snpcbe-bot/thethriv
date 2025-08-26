@@ -227,6 +227,7 @@ const ExpertSearch = () => {
                   </button>
                 </div>
               </div>
+              </div>
             </motion.div>
           ))}
         </div>
