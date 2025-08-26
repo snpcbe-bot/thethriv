@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { X, User, Building, Mail, Lock, Eye, EyeOff } from 'lucide-react'
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from '../../contexts/AuthContext'
 import type { SignUpData } from '../../types'
 
 interface AuthModalProps {
