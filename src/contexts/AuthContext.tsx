@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { User, Session } from '@supabase/supabase-js'
-import { supabase, signUp as supabaseSignUp, signIn as supabaseSignIn, signOut as supabaseSignOut } from '../lib/supabase'
+import { supabase } from '../lib/supabase'
 import { userProfileService, businessProfileService, expertProfileService, subscriptionService } from '../lib/database'
 import type { SignUpData, UserProfile } from '../types'
 
@@ -62,6 +62,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (session?.user) {
           await refreshProfile()
+          // Update online status when user signs in
+          await userProfileService.updateOnlineStatus(session.user.id, true)
         } else {
           setProfile(null)
         }
@@ -80,10 +82,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signUp = async (signUpData: SignUpData) => {
     try {
-      // Sign up with Supabase Auth
-      const { data, error } = await supabaseSignUp(signUpData.email, signUpData.password, {
+      const { data, error } = await supabase.auth.signUp({
+        email: signUpData.email,
+        password: signUpData.password,
+        options: {
+          data: {
         full_name: signUpData.full_name,
         role: signUpData.role
+          }
+        }
       })
 
       if (error) return { error }
@@ -122,12 +129,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       // Create subscription
       if (signUpData.plan !== 'free') {
+        const periodEnd = new Date()
+        if (signUpData.plan === 'weekly') {
+          periodEnd.setDate(periodEnd.getDate() + 7)
+        } else if (signUpData.plan === 'monthly') {
+          periodEnd.setMonth(periodEnd.getMonth() + 1)
+        } else if (signUpData.plan === 'yearly') {
+          periodEnd.setFullYear(periodEnd.getFullYear() + 1)
+        }
+
         await subscriptionService.create({
           user_id: data.user.id,
           plan: signUpData.plan,
           status: 'active',
           current_period_start: new Date().toISOString(),
-          current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days
+          current_period_end: periodEnd.toISOString()
         })
       }
 
@@ -139,7 +155,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }
 
   const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabaseSignIn(email, password)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
     return { data, error }
   }
 
@@ -148,7 +167,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Update online status before signing out
       await userProfileService.updateOnlineStatus(user.id, false)
     }
-    await supabaseSignOut()
+    await supabase.auth.signOut()
   }
 
   const value = {

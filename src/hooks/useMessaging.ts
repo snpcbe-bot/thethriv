@@ -11,6 +11,7 @@ export const useMessaging = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  const [onlineUsers, setOnlineUsers] = useState<Set<string>>(new Set());
 
   // Fetch conversations
   const fetchConversations = useCallback(async () => {
@@ -31,6 +32,18 @@ export const useMessaging = () => {
     try {
       const msgs = await messageService.getByConversationId(conversationId);
       setMessages(msgs);
+      
+      // Mark messages as read
+      const unreadMessages = msgs.filter(msg => 
+        msg.sender_id !== user?.id && 
+        !msg.read_by?.includes(user?.id || '')
+      );
+      
+      if (unreadMessages.length > 0 && user) {
+        await Promise.all(
+          unreadMessages.map(msg => messageService.markAsRead(msg.id, user.id))
+        );
+      }
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
@@ -42,6 +55,32 @@ export const useMessaging = () => {
 
     setSending(true);
     try {
+      // Optimistic update
+      const optimisticMessage: Message = {
+        id: `temp-${Date.now()}`,
+        conversation_id: activeConversation.id,
+        sender_id: user.id,
+        content: content.trim(),
+        message_type: messageType,
+        edited: false,
+        created_at: new Date().toISOString(),
+        sender_profile: {
+          id: user.id,
+          user_id: user.id,
+          full_name: user.user_metadata?.full_name || 'You',
+          email: user.email || '',
+          role: 'business',
+          verified: false,
+          online_status: true,
+          last_seen: new Date().toISOString(),
+          plan: 'free',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        }
+      };
+      
+      setMessages(prev => [...prev, optimisticMessage]);
+
       const message = await messageService.create(
         activeConversation.id,
         user.id,
@@ -50,7 +89,13 @@ export const useMessaging = () => {
       );
 
       if (message) {
-        setMessages(prev => [...prev, message]);
+        // Replace optimistic message with real message
+        setMessages(prev => 
+          prev.map(msg => 
+            msg.id === optimisticMessage.id ? message : msg
+          )
+        );
+        
         // Update conversation in list
         setConversations(prev => 
           prev.map(conv => 
@@ -59,9 +104,14 @@ export const useMessaging = () => {
               : conv
           )
         );
+      } else {
+        // Remove optimistic message on failure
+        setMessages(prev => prev.filter(msg => msg.id !== optimisticMessage.id));
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      // Remove optimistic message on error
+      setMessages(prev => prev.filter(msg => msg.id.startsWith('temp-')));
     } finally {
       setSending(false);
     }
@@ -104,6 +154,10 @@ export const useMessaging = () => {
     fetchMessages(conversation.id);
   };
 
+  // Get unread message count
+  const getUnreadCount = useCallback(() => {
+    return conversations.reduce((total, conv) => total + (conv.unread_count || 0), 0);
+  }, [conversations]);
   // Real-time subscriptions
   useEffect(() => {
     if (!user) return;
@@ -117,7 +171,7 @@ export const useMessaging = () => {
           event: '*',
           schema: 'public',
           table: 'conversations',
-          filter: `business_user_id=eq.${user.id},expert_user_id=eq.${user.id}`
+          filter: `or(business_user_id.eq.${user.id},expert_user_id.eq.${user.id})`
         },
         () => {
           fetchConversations();
@@ -151,17 +205,53 @@ export const useMessaging = () => {
 
             if (data && data.sender_id !== user.id) {
               setMessages(prev => [...prev, data]);
+              
+              // Update conversation list
+              setConversations(prev => 
+                prev.map(conv => 
+                  conv.id === activeConversation.id 
+                    ? { ...conv, last_message_at: data.created_at }
+                    : conv
+                )
+              );
             }
           }
         )
         .subscribe();
     }
 
+    // Subscribe to online presence
+    const presenceSubscription = supabase
+      .channel('online-users')
+      .on('presence', { event: 'sync' }, () => {
+        const state = supabase.getChannels()[0].presenceState();
+        const online = new Set(Object.keys(state));
+        setOnlineUsers(online);
+      })
+      .on('presence', { event: 'join' }, ({ key }) => {
+        setOnlineUsers(prev => new Set([...prev, key]));
+      })
+      .on('presence', { event: 'leave' }, ({ key }) => {
+        setOnlineUsers(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(key);
+          return newSet;
+        });
+      })
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          await supabase.channel('online-users').track({
+            user_id: user.id,
+            online_at: new Date().toISOString(),
+          });
+        }
+      });
     return () => {
       conversationSubscription.unsubscribe();
       if (messageSubscription) {
         messageSubscription.unsubscribe();
       }
+      presenceSubscription.unsubscribe();
     };
   }, [user, activeConversation, fetchConversations]);
 
@@ -203,6 +293,8 @@ export const useMessaging = () => {
     messages,
     loading,
     sending,
+    onlineUsers,
+    unreadCount: getUnreadCount(),
     sendMessage,
     createConversation,
     selectConversation,
