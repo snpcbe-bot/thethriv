@@ -11,11 +11,13 @@ import {
   Plus,
   Eye,
   Edit,
-  Megaphone
+  Megaphone,
+  Upload
 } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useUserProfile } from '../hooks/useUserProfile'
 import MessageCenter from './messaging/MessageCenter'
+import ExpertImport from './admin/ExpertImport'
 
 const Dashboard = () => {
   const { user, profile: authProfile } = useAuth()
@@ -33,8 +35,10 @@ const Dashboard = () => {
     { id: 'connections', name: 'Connections', icon: User },
     ...(isBusiness ? [{ id: 'projects', name: 'Projects', icon: Building }] : []),
     ...(isExpert ? [{ id: 'services', name: 'Services', icon: Star }] : []),
+    { id: 'import', name: 'Import Data', icon: Plus },
     { id: 'promote', name: 'Promote', icon: Megaphone },
     { id: 'settings', name: 'Settings', icon: Settings }
+    { id: 'import', name: 'Import Data', icon: Upload },
   ]
 
   if (profileLoading) {
@@ -93,6 +97,7 @@ const Dashboard = () => {
               {activeTab === 'connections' && <ConnectionsTab />}
               {activeTab === 'projects' && isBusiness && <ProjectsTab />}
               {activeTab === 'services' && isExpert && <ServicesTab />}
+              {activeTab === 'import' && <ExpertImportTab />}
               {activeTab === 'promote' && <PromoteTab />}
               {activeTab === 'settings' && <SettingsTab />}
             </div>

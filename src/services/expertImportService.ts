@@ -102,7 +102,7 @@ export class ExpertImportService {
           expertData.skills = expertData.skills.split(';').map((s: string) => s.trim());
         }
         if (expertData.languages) {
-          expertData.languages = expertData.languages.split(';').map((l: string) => l.trim());
+          expertData.languages = expertData.languages.split(';').map((l: string) => s.trim());
         }
         if (expertData.years_experience) {
           expertData.years_experience = parseInt(expertData.years_experience);

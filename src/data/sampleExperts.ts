@@ -86,6 +86,86 @@ export const sampleExperts = [
     languages: ["English"],
     response_time_hours: 18
   },
+  {
+    name: "Thomas Mueller",
+    email: "thomas@seoexperte.de",
+    expert_type: "seo" as const,
+    bio: "German SEO expert specializing in DACH market optimization. Helps international businesses enter German-speaking markets.",
+    skills: ["DACH Market SEO", "German Content", "International SEO", "Market Entry"],
+    years_experience: 9,
+    city: "Berlin",
+    country: "Germany",
+    price_range: "premium" as const,
+    hourly_rate: 110,
+    client_count: 67,
+    verified: true,
+    languages: ["German", "English"],
+    response_time_hours: 4
+  },
+  {
+    name: "Priya Sharma",
+    email: "priya@seodelhi.in",
+    expert_type: "seo" as const,
+    bio: "SEO consultant focused on emerging markets. Expertise in multilingual SEO and cultural adaptation for global brands.",
+    skills: ["Multilingual SEO", "Emerging Markets", "Cultural SEO", "Hindi Content"],
+    years_experience: 6,
+    city: "New Delhi",
+    country: "India",
+    price_range: "budget" as const,
+    hourly_rate: 35,
+    client_count: 189,
+    verified: true,
+    languages: ["Hindi", "English", "Punjabi"],
+    response_time_hours: 12
+  },
+  {
+    name: "Jean-Pierre Dubois",
+    email: "jp@seofrancais.fr",
+    expert_type: "seo" as const,
+    bio: "French SEO specialist with deep knowledge of European search behavior. Helps businesses optimize for French and European markets.",
+    skills: ["French SEO", "European Markets", "Multilingual Content", "Local Search"],
+    years_experience: 8,
+    city: "Paris",
+    country: "France",
+    price_range: "mid" as const,
+    hourly_rate: 90,
+    client_count: 112,
+    verified: true,
+    languages: ["French", "English", "Spanish"],
+    response_time_hours: 6
+  },
+  {
+    name: "Anna Kowalski",
+    email: "anna@seopoland.pl",
+    expert_type: "seo" as const,
+    bio: "Polish SEO expert with strong focus on Eastern European markets. Helps businesses optimize for Polish, Czech, and Slovak search engines.",
+    skills: ["Polish SEO", "Eastern Europe", "Seznam Optimization", "Regional Content"],
+    years_experience: 5,
+    city: "Warsaw",
+    country: "Poland",
+    price_range: "budget" as const,
+    hourly_rate: 40,
+    client_count: 167,
+    verified: true,
+    languages: ["Polish", "English", "Czech"],
+    response_time_hours: 16
+  },
+  {
+    name: "Lars Andersson",
+    email: "lars@seonordic.se",
+    expert_type: "seo" as const,
+    bio: "Nordic SEO specialist with expertise in Scandinavian search markets. Helps businesses optimize for Swedish, Norwegian, and Danish audiences.",
+    skills: ["Nordic SEO", "Scandinavian Markets", "Swedish Content", "Regional Optimization"],
+    years_experience: 8,
+    city: "Stockholm",
+    country: "Sweden",
+    price_range: "premium" as const,
+    hourly_rate: 100,
+    client_count: 84,
+    verified: true,
+    languages: ["Swedish", "English", "Norwegian", "Danish"],
+    response_time_hours: 4
+  },
 
   // Influencers
   {
@@ -195,58 +275,6 @@ export const sampleExperts = [
     languages: ["English", "Hindi", "Gujarati"],
     response_time_hours: 16
   },
-
-  // Additional SEO Experts
-  {
-    name: "Thomas Mueller",
-    email: "thomas@seoexperte.de",
-    expert_type: "seo" as const,
-    bio: "German SEO expert specializing in DACH market optimization. Helps international businesses enter German-speaking markets.",
-    skills: ["DACH Market SEO", "German Content", "International SEO", "Market Entry"],
-    years_experience: 9,
-    city: "Berlin",
-    country: "Germany",
-    price_range: "premium" as const,
-    hourly_rate: 110,
-    client_count: 67,
-    verified: true,
-    languages: ["German", "English"],
-    response_time_hours: 4
-  },
-  {
-    name: "Priya Sharma",
-    email: "priya@seodelhi.in",
-    expert_type: "seo" as const,
-    bio: "SEO consultant focused on emerging markets. Expertise in multilingual SEO and cultural adaptation for global brands.",
-    skills: ["Multilingual SEO", "Emerging Markets", "Cultural SEO", "Hindi Content"],
-    years_experience: 6,
-    city: "New Delhi",
-    country: "India",
-    price_range: "budget" as const,
-    hourly_rate: 35,
-    client_count: 189,
-    verified: true,
-    languages: ["Hindi", "English", "Punjabi"],
-    response_time_hours: 12
-  },
-  {
-    name: "Jean-Pierre Dubois",
-    email: "jp@seofrancais.fr",
-    expert_type: "seo" as const,
-    bio: "French SEO specialist with deep knowledge of European search behavior. Helps businesses optimize for French and European markets.",
-    skills: ["French SEO", "European Markets", "Multilingual Content", "Local Search"],
-    years_experience: 8,
-    city: "Paris",
-    country: "France",
-    price_range: "mid" as const,
-    hourly_rate: 90,
-    client_count: 112,
-    verified: true,
-    languages: ["French", "English", "Spanish"],
-    response_time_hours: 6
-  },
-
-  // Additional Influencers
   {
     name: "Jake Morrison",
     email: "jake@travelinfluencer.com",
@@ -310,8 +338,6 @@ export const sampleExperts = [
     languages: ["Portuguese", "Spanish", "English"],
     response_time_hours: 10
   },
-
-  // More diverse experts to reach closer to 20 for testing
   {
     name: "Ahmed Hassan",
     email: "ahmed@seoexpert.ae",
@@ -382,22 +408,6 @@ export const sampleExperts = [
     response_time_hours: 12
   },
   {
-    name: "Anna Kowalski",
-    email: "anna@seopoland.pl",
-    expert_type: "seo" as const,
-    bio: "Polish SEO expert with strong focus on Eastern European markets. Helps businesses optimize for Polish, Czech, and Slovak search engines.",
-    skills: ["Polish SEO", "Eastern Europe", "Seznam Optimization", "Regional Content"],
-    years_experience: 5,
-    city: "Warsaw",
-    country: "Poland",
-    price_range: "budget" as const,
-    hourly_rate: 40,
-    client_count: 167,
-    verified: true,
-    languages: ["Polish", "English", "Czech"],
-    response_time_hours: 16
-  },
-  {
     name: "Ryan Mitchell",
     email: "ryan@gaminginfluencer.com",
     expert_type: "influencer" as const,
@@ -435,22 +445,6 @@ export const sampleExperts = [
     response_time_hours: 6
   },
   {
-    name: "Lars Andersson",
-    email: "lars@seonordic.se",
-    expert_type: "seo" as const,
-    bio: "Nordic SEO specialist with expertise in Scandinavian search markets. Helps businesses optimize for Swedish, Norwegian, and Danish audiences.",
-    skills: ["Nordic SEO", "Scandinavian Markets", "Swedish Content", "Regional Optimization"],
-    years_experience: 8,
-    city: "Stockholm",
-    country: "Sweden",
-    price_range: "premium" as const,
-    hourly_rate: 100,
-    client_count: 84,
-    verified: true,
-    languages: ["Swedish", "English", "Norwegian", "Danish"],
-    response_time_hours: 4
-  },
-  {
     name: "Chloe Anderson",
     email: "chloe@petinfluencer.com",
     expert_type: "influencer" as const,
@@ -469,5 +463,165 @@ export const sampleExperts = [
     verified: false,
     languages: ["English"],
     response_time_hours: 20
+  },
+  {
+    name: "Raj Patel",
+    email: "raj@digitalseoexpert.in",
+    expert_type: "seo" as const,
+    bio: "Digital marketing and SEO expert specializing in e-commerce growth. Helped 100+ online stores increase revenue through organic search.",
+    skills: ["E-commerce SEO", "Digital Marketing", "Conversion Optimization", "Google Ads"],
+    years_experience: 7,
+    city: "Bangalore",
+    country: "India",
+    price_range: "budget" as const,
+    hourly_rate: 30,
+    client_count: 203,
+    verified: true,
+    languages: ["English", "Hindi", "Kannada"],
+    response_time_hours: 8
+  },
+  {
+    name: "Marie Dubois",
+    email: "marie@influenceuse.fr",
+    expert_type: "influencer" as const,
+    bio: "French lifestyle and travel influencer with a passion for sustainable living. Creates content about eco-friendly travel and conscious consumption.",
+    skills: ["Sustainable Living", "Eco Travel", "French Content", "Lifestyle Blogging"],
+    years_experience: 4,
+    city: "Lyon",
+    country: "France",
+    price_range: "mid" as const,
+    follower_count: 110000,
+    engagement_rate: 5.7,
+    social_media_urls: {
+      instagram: "https://instagram.com/mariedubois",
+      youtube: "https://youtube.com/marieeco"
+    },
+    verified: true,
+    languages: ["French", "English"],
+    response_time_hours: 12
+  },
+  {
+    name: "Hans Weber",
+    email: "hans@seoberater.de",
+    expert_type: "seo" as const,
+    bio: "German SEO consultant with 12+ years experience. Specializes in technical SEO audits and enterprise-level optimization strategies.",
+    skills: ["Technical SEO", "Enterprise SEO", "SEO Audits", "German Market"],
+    years_experience: 12,
+    city: "Munich",
+    country: "Germany",
+    price_range: "premium" as const,
+    hourly_rate: 130,
+    client_count: 45,
+    verified: true,
+    languages: ["German", "English"],
+    response_time_hours: 6
+  },
+  {
+    name: "Olivia Chen",
+    email: "olivia@beautyinfluencer.sg",
+    expert_type: "influencer" as const,
+    bio: "Asian beauty and skincare influencer based in Singapore. Expert in K-beauty trends and product reviews with high engagement rates.",
+    skills: ["Beauty Content", "K-Beauty", "Skincare Reviews", "Asian Markets"],
+    years_experience: 3,
+    city: "Singapore",
+    country: "Singapore",
+    price_range: "mid" as const,
+    follower_count: 87000,
+    engagement_rate: 7.1,
+    social_media_urls: {
+      instagram: "https://instagram.com/oliviachen",
+      tiktok: "https://tiktok.com/@oliviachen"
+    },
+    verified: true,
+    languages: ["English", "Mandarin", "Malay"],
+    response_time_hours: 10
+  },
+  {
+    name: "James Wilson",
+    email: "james@localseouk.com",
+    expert_type: "seo" as const,
+    bio: "UK-based local SEO specialist helping small businesses dominate their local markets. Expert in Google My Business optimization.",
+    skills: ["Local SEO", "Google My Business", "UK Market", "Small Business SEO"],
+    years_experience: 6,
+    city: "Birmingham",
+    country: "UK",
+    price_range: "mid" as const,
+    hourly_rate: 70,
+    client_count: 178,
+    verified: true,
+    languages: ["English"],
+    response_time_hours: 16
+  },
+  {
+    name: "Nina Petrov",
+    email: "nina@fashioninfluencer.rs",
+    expert_type: "influencer" as const,
+    bio: "Eastern European fashion influencer with strong presence in Balkans region. Collaborates with emerging fashion brands.",
+    skills: ["Fashion Content", "Emerging Brands", "Balkan Markets", "Style Consulting"],
+    years_experience: 3,
+    city: "Belgrade",
+    country: "Serbia",
+    price_range: "budget" as const,
+    follower_count: 52000,
+    engagement_rate: 8.3,
+    social_media_urls: {
+      instagram: "https://instagram.com/ninapetrov",
+      tiktok: "https://tiktok.com/@ninapetrov"
+    },
+    verified: false,
+    languages: ["Serbian", "English", "Russian"],
+    response_time_hours: 18
+  },
+  {
+    name: "Antonio Garcia",
+    email: "antonio@seoespanol.es",
+    expert_type: "seo" as const,
+    bio: "Spanish SEO expert with focus on Hispanic markets. Helps businesses optimize for Spanish-speaking audiences worldwide.",
+    skills: ["Spanish SEO", "Hispanic Markets", "Multilingual SEO", "Content Localization"],
+    years_experience: 8,
+    city: "Madrid",
+    country: "Spain",
+    price_range: "mid" as const,
+    hourly_rate: 80,
+    client_count: 134,
+    verified: true,
+    languages: ["Spanish", "English", "Portuguese"],
+    response_time_hours: 10
+  },
+  {
+    name: "Zara Ahmed",
+    email: "zara@techinfluencer.pk",
+    expert_type: "influencer" as const,
+    bio: "Tech and startup influencer from Pakistan. Creates content about emerging technologies and startup ecosystem in South Asia.",
+    skills: ["Tech Content", "Startup Ecosystem", "Emerging Markets", "South Asian Tech"],
+    years_experience: 4,
+    city: "Karachi",
+    country: "Pakistan",
+    price_range: "budget" as const,
+    follower_count: 43000,
+    engagement_rate: 6.9,
+    social_media_urls: {
+      linkedin: "https://linkedin.com/in/zaraahmed",
+      twitter: "https://twitter.com/zaratech"
+    },
+    verified: false,
+    languages: ["English", "Urdu"],
+    response_time_hours: 14
+  },
+  {
+    name: "Erik Johansson",
+    email: "erik@seosverige.se",
+    expert_type: "seo" as const,
+    bio: "Swedish SEO consultant specializing in Nordic markets. Expert in Swedish search behavior and local optimization strategies.",
+    skills: ["Swedish SEO", "Nordic Markets", "Local Search", "Scandinavian Content"],
+    years_experience: 7,
+    city: "Gothenburg",
+    country: "Sweden",
+    price_range: "premium" as const,
+    hourly_rate: 95,
+    client_count: 67,
+    verified: true,
+    languages: ["Swedish", "English", "Norwegian"],
+    response_time_hours: 8
   }
 ];

@@ -15,6 +15,7 @@ const Navigation = () => {
   const navigation = [
     { name: 'Business', href: '/business' },
     { name: 'Experts', href: '/experts' },
+    { name: 'Search', href: '/search' },
     { name: 'Pricing', href: '/pricing' },
     { name: 'Resources', href: '/resources' },
     { name: 'About', href: '/about' },
