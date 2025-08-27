@@ -1,31 +1,21 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { 
   User, 
-  Building, 
-  Search, 
   MessageSquare, 
-  Star, 
-  TrendingUp, 
-  Settings,
-  Plus,
-  Eye,
-  Edit,
-  Megaphone,
   BarChart3,
+  Settings,
+  Eye,
   Shield
-} from 'lucide-react'
-import { useAuth } from '../contexts/AuthContext'
-import { useUserProfile } from '../hooks/useUserProfile'
-import MessageCenter from './messaging/MessageCenter'
+} from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { useUserProfile } from '../hooks/useUserProfile';
+import MessageCenter from './messaging/MessageCenter';
 
 const Dashboard = () => {
-  const { user, profile: authProfile } = useAuth()
-  const { profile, businessProfile, expertProfile, loading: profileLoading } = useUserProfile()
-  const [activeTab, setActiveTab] = useState('overview')
-
-  const isExpert = profile?.role === 'expert'
-  const isBusiness = profile?.role === 'business'
+  const { user } = useAuth();
+  const { profile, loading: profileLoading } = useUserProfile();
+  const [activeTab, setActiveTab] = useState('overview');
 
   const tabs = [
     { id: 'overview', name: 'Overview', icon: BarChart3 },
@@ -33,7 +23,7 @@ const Dashboard = () => {
     { id: 'messages', name: 'Messages', icon: MessageSquare },
     { id: 'connections', name: 'Connections', icon: User },
     { id: 'settings', name: 'Settings', icon: Settings }
-  ]
+  ];
 
   if (profileLoading) {
     return (
@@ -43,25 +33,25 @@ const Dashboard = () => {
           <p className="text-slate-600">Loading dashboard...</p>
         </div>
       </div>
-    )
+    );
   }
 
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
-        return <OverviewTab profile={profile} />
+        return <OverviewTab />;
       case 'profile':
-        return <ProfileTab profile={profile} />
+        return <ProfileTab profile={profile} />;
       case 'messages':
-        return <MessageCenter />
+        return <MessageCenter />;
       case 'connections':
-        return <ConnectionsTab />
+        return <ConnectionsTab />;
       case 'settings':
-        return <SettingsTab />
+        return <SettingsTab />;
       default:
-        return <OverviewTab profile={profile} />
+        return <OverviewTab />;
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 pt-32">
@@ -112,10 +102,10 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const OverviewTab = ({ profile }: { profile: any }) => (
+const OverviewTab = () => (
   <div>
     <h2 className="text-4xl font-bold text-slate-900 mb-12">Dashboard Overview</h2>
     
@@ -157,30 +147,30 @@ const OverviewTab = ({ profile }: { profile: any }) => (
     <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
       <h3 className="text-xl font-bold text-slate-900 mb-6">Recent Activity</h3>
       <div className="space-y-6">
-        {[
-          { type: 'connection', message: 'New connection request from Sarah Johnson', time: '2 hours ago', color: 'blue' },
-          { type: 'view', message: 'Profile viewed by 5 new users', time: '1 day ago', color: 'green' },
-          { type: 'message', message: 'Message received from Mike Chen', time: '2 days ago', color: 'purple' }
-        ].map((activity, index) => (
-          <div key={index} className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-slate-200">
-            <div className={`w-3 h-3 bg-${activity.color}-500 rounded-full`}></div>
-            <p className="text-slate-700 flex-1">{activity.message}</p>
-            <span className="text-sm text-slate-500 font-medium">{activity.time}</span>
-          </div>
-        ))}
+        <div className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-slate-200">
+          <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+          <p className="text-slate-700 flex-1">New connection request from Sarah Johnson</p>
+          <span className="text-sm text-slate-500 font-medium">2 hours ago</span>
+        </div>
+        <div className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-slate-200">
+          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+          <p className="text-slate-700 flex-1">Profile viewed by 5 new users</p>
+          <span className="text-sm text-slate-500 font-medium">1 day ago</span>
+        </div>
+        <div className="flex items-center space-x-4 p-4 bg-white rounded-xl border border-slate-200">
+          <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+          <p className="text-slate-700 flex-1">Message received from Mike Chen</p>
+          <span className="text-sm text-slate-500 font-medium">2 days ago</span>
+        </div>
       </div>
     </div>
   </div>
-)
+);
 
 const ProfileTab = ({ profile }: { profile: any }) => (
   <div>
     <div className="flex items-center justify-between mb-12">
       <h2 className="text-4xl font-bold text-slate-900">Profile Settings</h2>
-      <button className="inline-flex items-center px-6 py-3 bg-slate-900 text-white font-semibold rounded-xl hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl">
-        <Edit className="w-4 h-4 mr-2" />
-        Edit Profile
-      </button>
     </div>
 
     <div className="space-y-8">
@@ -222,7 +212,7 @@ const ProfileTab = ({ profile }: { profile: any }) => (
       </div>
     </div>
   </div>
-)
+);
 
 const ConnectionsTab = () => (
   <div>
@@ -231,13 +221,9 @@ const ConnectionsTab = () => (
       <User className="w-20 h-20 text-slate-400 mx-auto mb-6" />
       <h3 className="text-2xl font-bold text-slate-900 mb-4">No connections yet</h3>
       <p className="text-slate-500 mb-8">Connect with experts or businesses to build your network.</p>
-      <button className="inline-flex items-center px-6 py-3 bg-slate-900 text-white font-semibold rounded-xl hover:bg-slate-800 transition-all duration-200 shadow-lg hover:shadow-xl">
-        <Search className="w-4 h-4 mr-2" />
-        Find Experts
-      </button>
     </div>
   </div>
-)
+);
 
 const SettingsTab = () => (
   <div>
@@ -278,6 +264,6 @@ const SettingsTab = () => (
       </div>
     </div>
   </div>
-)
+);
 
-export default Dashboard
+export default Dashboard;
