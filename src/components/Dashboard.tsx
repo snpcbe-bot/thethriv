@@ -100,7 +100,6 @@ const Dashboard = () => {
               {activeTab === 'connections' && <ConnectionsTab />}
               {activeTab === 'projects' && isBusiness && <ProjectsTab />}
               {activeTab === 'services' && isExpert && <ServicesTab />}
-              {activeTab === 'import' && <ExpertImportTab />}
               {activeTab === 'promote' && <PromoteTab />}
               {activeTab === 'settings' && <SettingsTab />}
             </div>
