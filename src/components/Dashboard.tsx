@@ -36,7 +36,6 @@ const Dashboard = () => {
     { id: 'connections', name: 'Connections', icon: User },
     ...(isBusiness ? [{ id: 'projects', name: 'Projects', icon: Building }] : []),
     ...(isExpert ? [{ id: 'services', name: 'Services', icon: Star }] : []),
-    { id: 'settings', name: 'Settings', icon: Settings }
     { id: 'promote', name: 'Promote', icon: Megaphone },
     { id: 'settings', name: 'Settings', icon: Settings }
   ]
