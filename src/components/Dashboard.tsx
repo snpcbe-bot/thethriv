@@ -268,13 +268,6 @@ const ServicesTab = () => (
   </div>
 )
 
-const ExpertImportTab = () => (
-  <div>
-    <h2 className="text-section-title text-slate-900 mb-8">Expert Data Management</h2>
-    <ExpertImport />
-  </div>
-)
-
 const PromoteTab = () => (
   <div>
     <h2 className="text-section-title text-slate-900 mb-12">Promote Your Profile</h2>
