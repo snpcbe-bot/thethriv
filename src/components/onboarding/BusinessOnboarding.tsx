@@ -418,6 +418,7 @@ const BusinessOnboarding: React.FC = () => {
           </div>
         </div>
       </div>
+    </motion.div>
     </div>
   );
 };
