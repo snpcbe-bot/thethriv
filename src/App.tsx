@@ -18,6 +18,8 @@ import Dashboard from './components/Dashboard';
 import ExpertSearch from './components/ExpertSearch';
 import ProtectedRoute from './components/ProtectedRoute';
 import ExpertSearchPage from './components/expert-search/ExpertSearchPage';
+import BusinessOnboarding from './components/onboarding/BusinessOnboarding';
+import ExpertOnboarding from './components/onboarding/ExpertOnboarding';
 
 function App() {
   return (
