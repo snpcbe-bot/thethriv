@@ -39,6 +39,8 @@ function App() {
             <Route path="/join-expert" element={<JoinExpert />} />
             <Route path="/search" element={<ExpertSearchPage />} />
             <Route path="/experts/search" element={<ExpertSearchPage />} />
+            <Route path="/onboarding/business" element={<BusinessOnboarding />} />
+            <Route path="/onboarding/expert" element={<ExpertOnboarding />} />
             <Route 
               path="/dashboard" 
               element={
