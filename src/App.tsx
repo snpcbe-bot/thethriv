@@ -18,8 +18,6 @@ import Dashboard from './components/Dashboard';
 import ExpertSearch from './components/ExpertSearch';
 import ProtectedRoute from './components/ProtectedRoute';
 import ExpertSearchPage from './components/expert-search/ExpertSearchPage';
-import BusinessOnboarding from './components/onboarding/BusinessOnboarding';
-import ExpertOnboarding from './components/onboarding/ExpertOnboarding';
 
 function App() {
   return (
@@ -41,8 +39,6 @@ function App() {
             <Route path="/join-expert" element={<JoinExpert />} />
             <Route path="/search" element={<ExpertSearchPage />} />
             <Route path="/experts/search" element={<ExpertSearchPage />} />
-            <Route path="/onboarding/business" element={<BusinessOnboarding />} />
-            <Route path="/onboarding/expert" element={<ExpertOnboarding />} />
             <Route 
               path="/dashboard" 
               element={
