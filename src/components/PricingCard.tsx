@@ -95,6 +95,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
       </ul>
       
       <button
+        onClick={onSelect}
         className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-200 ${
           highlighted
             ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl'

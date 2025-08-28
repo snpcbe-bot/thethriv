@@ -307,7 +307,7 @@ const JoinExpert = () => {
               to="/pricing"
               className="group inline-flex items-center justify-center px-10 py-4 text-lg font-semibold bg-white text-purple-600 rounded-xl hover:bg-gray-50 transition-all duration-200 hover:scale-105 shadow-lg"
             >
-              Get Started Free
+              Join Today
               <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <div className="mt-6 text-purple-100">
