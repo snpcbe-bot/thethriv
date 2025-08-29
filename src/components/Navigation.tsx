@@ -105,12 +105,6 @@ const Navigation = () => {
             <div className="hidden lg:flex items-center">
               {user ? (
                 <div className="flex items-center space-x-6">
-                  <Link
-                    to="/dashboard"
-                    className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors"
-                  >
-                    Dashboard
-                  </Link>
                   <button
                     onClick={signOut}
                     className="text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors"
@@ -167,13 +161,6 @@ const Navigation = () => {
                 
                 {user ? (
                   <div className="pt-4 border-t border-slate-200 space-y-3">
-                    <Link
-                      to="/dashboard"
-                      className="block px-4 py-3 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
                     <button
                       onClick={() => {
                         signOut();

@@ -14,9 +14,6 @@ import JoinBusiness from './pages/JoinBusiness';
 import JoinExpert from './pages/JoinExpert';
 import CookieConsent from './components/CookieConsent';
 import Footer from './components/Footer';
-import Dashboard from './components/Dashboard';
-import ExpertSearch from './components/ExpertSearch';
-import ProtectedRoute from './components/ProtectedRoute';
 import ExpertSearchPage from './components/expert-search/ExpertSearchPage';
 
 function App() {
@@ -39,14 +36,6 @@ function App() {
             <Route path="/join-expert" element={<JoinExpert />} />
             <Route path="/search" element={<ExpertSearchPage />} />
             <Route path="/experts/search" element={<ExpertSearchPage />} />
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              } 
-            />
           </Routes>
           <Footer />
           <CookieConsent />
